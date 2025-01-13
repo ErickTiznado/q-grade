@@ -5,30 +5,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function Header({ onOpenModal }) {
   return (
     <header className="header">
-      {/* Tooltip para el nivel */}
+
+    <div className='container'>
+    <div className='progres-container'>
       <div className="tooltip">
-        <div className="level-label hover-bounce" data-anim="pulse-on-hover">
-          Nivel 1
+          <div className="level-label hover-bounce" data-anim="pulse-on-hover">
+          Nivel Basico        
+          </div>
+          <div className="tooltiptext">
+            ¡Estás en el Nivel 1! Completa más lecciones para avanzar.
+          </div>
         </div>
-        <div className="tooltiptext">
-          ¡Estás en el Nivel 1! Completa más lecciones para avanzar.
+
+        {/* Barra de progreso */}
+        <div className="chart progress-slide-in">
+          <div className="bar" id="progressBar"></div>
+          <span id="value1">100</span>
         </div>
-      </div>
-
-      {/* Barra de progreso */}
-      <div className="chart progress-slide-in">
-        <div className="bar" id="progressBar"></div>
-        <span id="value1">100</span>
-      </div>
-
-      {/* Ícono de usuario que al hacer clic abre el modal */}
-      <div
+    </div>
+    <div className='icon-container'>
+                    {/* Ícono de usuario que al hacer clic abre el modal */}
+                    <div
         className="user-icon hover-bounce"
         data-anim="pulse-on-hover"
         onClick={onOpenModal}
       >
         <FontAwesomeIcon icon="user-circle" />
       </div>
+    </div>
+    </div>
     </header>
   );
 }
