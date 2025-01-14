@@ -315,11 +315,14 @@ h1 {
     width: 30%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, transform 0.2s ease;
+    min-height: 200px; /* Define una altura mínima para evitar cambios bruscos en el diseño */
 }
 .level:hover {
-    
     transform: scale(1.1);
 }
+
+
+
 
 .level-icon {
     background-color: #e5f1ff;
