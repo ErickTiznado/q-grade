@@ -1,7 +1,7 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #0a173b; /* Color de fondo */
+    font-family: 'Arial', sans-serif;
+    background-color: #1D3145; /* Color de fondo */
     color: white;
     text-align: center;
 }
@@ -25,20 +25,24 @@ body {
 
 
 /* Estilos para menu */
-  nav {
+nav {
     display: flex;
     justify-content: center;
+    
+    gap: 30px; /* Ajusta el valor para mayor o menor separación */
     padding: 20px;
-    background-color: #0a173ba4;
+    background-color: #213950;
     position: fixed;
     width: 100%;
     top: 0;
+
     backdrop-filter: blur(30px);
     z-index: 1000;
 }
 
 nav .menu-item {
     position: relative;
+    
     margin: 0 15px;
 }
 
@@ -47,6 +51,7 @@ nav a {
     color: white;
     font-weight: bold;
     padding: 5px 0;
+    margin-right: 50px;
     position: relative;
 }
 
@@ -96,8 +101,6 @@ nav a:hover::after {
   
 }
 
-
-
 .menu-item:hover .submenu {
     opacity: 1;
     visibility: visible;
@@ -105,353 +108,29 @@ nav a:hover::after {
 }
 
 /* Parte central de landing page*/
-.hero2 {
-    margin-top: 10px; 
-    padding: 50px;
-}
 
-.hero2 h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
-
-.hero2 h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
-
-
-
+.content1 {
+    margin-top: 60px;
+    padding: 150px;
+    background-color: #1D3145;
   
-
-.hero {
-    margin-top: 100px; 
-    padding: 50px;
+    
 }
-
-.hero h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-}
-
-.hero h2 {
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 18px;
-    margin-bottom: 30px;
-}
-
-.hero button {
-    background-color: #3b4bff; /* Color del botón */
-    border: none;
-    padding: 15px 30px;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 60px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.hero button:hover {
-    background-color: #3240d0; /* Color al pasar el mouse */
-}
-
-
-
-.search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background-color: #032b77; /* Color de fondo */
-    border-radius: 60px; /* Bordes redondeados */
-    padding: 5px 10px; /* Espaciado interno */
-    margin: 30px auto; /* Centrando el contenedor */
-    max-width: 700px; /* Ancho máximo */
-    box-sizing: border-box; /* Incluye el padding dentro del ancho */
-}
-
-input[type="text"] {
-    margin: 20px; /* Remover márgenes adicionales */
-    background-color: #00215D;
-    border: none;
-    color: #fff;
-    border-radius: 60px;
-    width: 100%; /* Ocupa todo el ancho disponible dentro del contenedor */
-}
-
-  
-  .search-container input {
-    border: none;
-    outline: none;
-    background-color: transparent;
-    color: white;
-    flex: 1;
-  }
-  
-  .search-container .search-icon {
-    background-color: #00ff6a; /* Color verde del ícono */
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
+img {
+    max-width: 100%;
+    height: auto;
     justify-content: center;
-    font-size: 18px;
-    cursor: pointer;
-  }
-  
-  .search-container .search-icon:hover {
-    background-color: #00e65a; /* Color al pasar el ratón */
-  }
-
-  .container2 {
-    position: relative;
-    padding: 0px;
-    display: flex;
-    margin-left: 100px;
-    margin-right: 100px;
-    
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-.Modulos   {
-    position: relative;
-    padding: 0px;
-    display: flex;
-    margin-left: 100px;
-    margin-right: 100px;
-    
-    flex-wrap: wrap;
-    justify-content: space-between;
 }
 
-.card {
-    margin-top: 20px;
-    background-color: #032b77;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    color: #ffffff;
-    border-radius: 16px;
-    padding: 1.5rem;
-   text-align: left;
-    font-size: 20px;
-    flex: 1 1 calc(30% - 1rem);
-    max-width: calc(30% - 1rem);
-    transition: transform 0.2s ease-in-out;
- 
+.content2 {
+    margin-top: 60px;
+    padding:150px;
+    background-color: #ffffff;
+    color: #000;   
 }
 
-.card:hover {
-    transform: translateY(-10px);
-}
-
-.card h3 {
-    font-size: 12px;
-    margin: 0.5rem 0;
-}
-
-.card p {
-    font-size: 1rem;
-    color: #666666;
-}
-  
-.carousel {
-    width: 80%;
-    max-width: 800px;
-    margin-top: auto;
-    overflow: hidden;
-    margin: auto;
-    position: relative;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.carousel-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    will-change: transform;
-}
-
-.carousel-item {
-    min-width: 100%;
-    flex-shrink: 0;
-    position: relative;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.carousel-item img,
-.carousel-item video {
-    width: 100%;
-    border-radius: 15px;
-    object-fit: cover;
-    filter: brightness(95%);
-}
-
-.carousel-date {
-    position: absolute;
-    top: 10px; /* Cambiado a la esquina superior */
-    left: 15px;
-    background: rgba(0, 0, 0, 0.6);
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-family: 'Roboto', sans-serif;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-}
-
-.carousel-item:hover .carousel-date {
-    opacity: 1;
-}
-
-.carousel-buttons {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-    pointer-events: none;
-}
-
-.carousel-buttons button {
-    pointer-events: auto;
-    background-color: rgba(0, 0, 0, 0);
-    border: none;
-    color: white;
-    padding: 12px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.carousel-buttons button:hover {
-    transform: scale(1.1);
-}
-
-.carousel-buttons button:focus {
-    outline: none;
-}
-
-
-.linea-negra {
-    border: 5px solid rgb(30, 6, 110);
-    border-radius: 20px;
-    margin-left: 100px;
-    margin-right: 100px;
-
-    
-
-   
-    background-color: rgb(30, 6, 110);
-
-}
-
-h3 {    
-  
-  font-size: 35px;
-    margin-top: 100px;
-  
-    text-align: center;
-    
-
-}
-
-
-.containers {
-    margin-left:100px;
-    margin-right:100px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas en pantallas grandes */
-    gap: 20px;
-    justify-content: center;
-    margin-top: 50px;
-    animation: fadeIn 1s ease-in-out; /* Animación para la aparición suave */
-}
-
-.profile-card {
-  
-    display: flex;
-    align-items: center;
-    background-color: rgb(30, 6, 110); /* Color del rectángulo */
-    border-radius: 80px; /* Bordes más suaves */
-    width: 100%;
-    max-width: 300px; /* Limitar el tamaño máximo de la tarjeta */
-    height: 100px;
-    
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
-    transition: transform 0.3s ease; /* Transición para efecto de hover */
-}
-
-.profile-card:hover {
-    transform: translateY(-10px); /* Efecto de hover que hace que suba ligeramente */
-}
-
-.profile-card img {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    margin-right: 15px;
-    object-fit: cover; /* Mejora la calidad de las imágenes */
-}
-
-.profile-card .text {
-    text-align: left;
-    color: #fff; /* Blanco para mayor contraste */
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Media query para pantallas medianas */
-@media (max-width: 768px) {
-    .containers {
-        grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas medianas */
-    }
-}
-
-/* Media query para pantallas pequeñas (móviles) */
-@media (max-width: 480px) {
-    .containers {
-        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
-    }
-    .profile-card {
-        max-width: 100%; /* La tarjeta ocupará todo el ancho disponible */
-        height: auto; /* Ajuste la altura de las tarjetas en móviles */
-    }
-}
-
-.button1 {
-    margin: 50px auto; /* Centra horizontalmente y ajusta el margen superior e inferior */
-    display: inline-block; /* Hace que el botón mantenga su tamaño contenido */
-    text-decoration: none;
-    background-color: #3b4bff; /* Color del botón */
-    border: none;
-    padding: 15px 30px;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 60px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.button1:hover {
-    background-color: #2a38cc; /* Cambia a un color más oscuro al pasar el mouse */
-    transform: scale(1.05); /* Hace un pequeño aumento al pasar el mouse */
+.content2 h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #000;
 }
