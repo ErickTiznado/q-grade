@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Q-grade</title>
-    <link rel="stylesheet" href="src/Landing-page.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Q-grade</title>
+        <link rel="stylesheet" href="src/Landing-page.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="icon" type="image/png" href="src/icon.png">
+    </head>
 
 <body>
    
@@ -103,7 +103,98 @@
      </div>
        </div>
 
+
+
+
+       <div class="content4">
+
+        <div class="containerzz">
+            <h1>Niveles de aprendizaje</h1>
+
+
+
+            <div class="levels">
+                <div class="level" onmouseover="changeText(this)" onmouseout="resetText(this)">
+                    <div class="level-icon">1</div>
+                    <h2>Nivel Básico</h2>
+                    <ul>
+                        <li>Ideal para principiantes. Aprende los fundamentos de calidad y da tus primeros pasos en la gestión de procesos.</li>
+                       
+                    </ul>
+                </div>
+
+
+                <div class="level" onmouseover="changeText2(this)" onmouseout="resetText2(this)">
+                    <div class="level-icon2">2</div>
+                    <h2>Nivel Básico</h2>
+                    <p>Ideal para principiantes. Aprende los fundamentos de calidad y da tus primeros pasos en la gestión de procesos.</p>
+                </div>
+
+
+                <div class="level" onmouseover="changeText3(this)" onmouseout="resetText3(this)">
+                    <div class="level-icon3">3</div>
+                    <h2>Nivel Básico</h2>
+                    <p>Ideal para principiantes. Aprende los fundamentos de calidad y da tus primeros pasos en la gestión de procesos.</p>
+                </div>
+            </div>
+            <p class="note">Nota: Solo se avanza de nivel al completar los temas del nivel actual. Preguntar sobre niveles avanzados sin cumplir el nivel actual no permite avanzar.</p>
+        </div>
+       </div>
+
+
+
+
+
+
+
+
+
        <script>
+
+
+
+
+
+
+
+
+
+function changeText(element) {
+    element.querySelector('ul').innerHTML = `
+
+    <li>Introducción a la calidad del software</li>
+        <li>Calidad del Software una Perspectiva Continua</li>
+        <li>Planificación, Gestión y Control de la Calidad del Software</li>
+        <li>Calidad en el Desarrollo de software</li>
+        
+    `;
+}
+
+function resetText(element) {
+    element.querySelector('ul').innerHTML = `
+        <li>Ideal para principiantes. Aprende los fundamentos de calidad y da tus primeros pasos en la gestión de procesos.</li>
+     
+    `;
+}
+
+
+function changeText2(element) {
+    element.querySelector('p').textContent = "222";
+}
+
+function resetText2(element) {
+    element.querySelector('p').textContent = "22222";
+}
+
+function changeText3(element) {
+    element.querySelector('p').textContent = "333";
+}
+
+function resetText3(element) {
+    element.querySelector('p').textContent = "333";
+}
+
+
         const track = document.querySelector('.carousel-track');
         const items = document.querySelectorAll('.carousel-item');
         const prevButton = document.getElementById('prevButton');
