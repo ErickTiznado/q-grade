@@ -58,7 +58,7 @@ nav a::after {
     left: 50%;
     width: 0;
     height: 2px;
-    background-color: #3b4bff;
+    background-color: #ffffff;
     transform: translateX(-50%);
     transition: width 0.3s ease;
 }
@@ -70,29 +70,30 @@ nav a:hover::after {
 .submenu {
     display: block;
     position: fixed;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #2139509d;
+    top: 50px;
+    background-color: #ffffff;
     padding: 50px 20px;
     opacity: 0;
     visibility: hidden;
     transform: scale(0.95);
     transition: all 0.3s ease;
-
+    border-radius: 10px;
     backdrop-filter: blur(30px);
     z-index: 1000;
+    
+   
 }
 
 .submenu a {
-    display: block;
-    margin: 0;
+    display: flex;
+    justify-content: space-between;
     text-decoration: none;
-    color: white;
+    color: black;
     font-size: 12px;
     padding: 10px 15px;
     text-align: left;
 }
+
 
 .menu-item:hover .submenu {
     opacity: 1;
