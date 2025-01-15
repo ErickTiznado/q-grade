@@ -273,14 +273,16 @@ img {
 
 .carousel-buttons button {
     pointer-events: auto;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.311);
     border: none;
-    color: white;
-    padding: 12px;
-    border-radius: 50%;
+    color: rgb(0, 255, 47);
+    width: 50px; /* Asegura que sea igual */
+    height: 50px; /* Igual al width */
+    border-radius: 50%; /* Hace el botón circular */
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 
 .carousel-buttons button:hover {
     transform: scale(1.1);
