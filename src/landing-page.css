@@ -231,11 +231,15 @@ img {
 
 .carousel-item img,
 .carousel-item video {
-    width: 100%;
+    width: 100%; /* Las imágenes ocuparán todo el ancho del carrusel */
+    max-width: 100%; /* Asegura que las imágenes no excedan el ancho */
+    max-height: 400px; /* Asegura que las imágenes no excedan el alto del contenedor */
+    height: auto; /* Mantiene la proporción original */
     border-radius: 15px;
-    object-fit: cover;
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
     filter: brightness(95%);
 }
+
 
 .carousel-date {
     position: absolute;
