@@ -204,7 +204,6 @@ img {
 
 
 
-
 .carousel {
     width: 80%;
     max-width: 800px;
@@ -226,21 +225,20 @@ img {
     min-width: 100%;
     flex-shrink: 0;
     position: relative;
-    display: flex;
-    justify-content: left; /* Centra horizontalmente el contenido del carrusel */
-    align-items: center; /* Centra verticalmente el contenido del carrusel */
     transition: opacity 0.5s ease-in-out;
 }
 
 .carousel-item img,
 .carousel-item video {
-    width: auto; /* Permite que las imágenes y videos mantengan su proporción */
-    max-width: 50%; /* Asegura que las imágenes y videos no excedan el ancho del contenedor */
-    max-height: 80%; /* Asegura que las imágenes y videos no excedan la altura del contenedor */
+    width: 100%; /* Las imágenes ocuparán todo el ancho del carrusel */
+    max-width: 100%; /* Asegura que las imágenes no excedan el ancho */
+    max-height: 400px; /* Asegura que las imágenes no excedan el alto del contenedor */
+    height: auto; /* Mantiene la proporción original */
     border-radius: 15px;
-    object-fit: contain; /* Asegura que las imágenes se muestren completas */
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
     filter: brightness(95%);
 }
+
 
 .carousel-date {
     position: absolute;
