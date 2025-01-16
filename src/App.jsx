@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import Header from "./components/Layout/Header/Header";
 import Sidebar from "./components/Layout/Sidebar/Sidebar";
 import ChatBox from "./components/ChatBox/ChatBox";
+import Chat from "./components/chat/Chat"; // Asegúrate de importar tu nuevo componente
 import "./App.css";
+import "./components/chat/Chat";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeComponent, setActiveComponent] = useState("ChatBox"); // Estado para controlar el contenido principal
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
@@ -18,6 +21,11 @@ function App() {
 
   const handleSelectChat = (chatId) => {
     console.log("Chat seleccionado:", chatId);
+  };
+
+  // Función para cambiar el contenido principal
+  const handleNavigateToChat = () => {
+    setActiveComponent("Chat");
   };
 
   return (
@@ -34,7 +42,10 @@ function App() {
 
       {/* Main Content */}
       <div className="div3">
-        <ChatBox />
+        {activeComponent === "ChatBox" && (
+          <ChatBox onNavigateToChat={handleNavigateToChat} />
+        )}
+        {activeComponent === "Chat" && <Chat />}
       </div>
     </div>
   );
