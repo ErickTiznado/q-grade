@@ -334,6 +334,7 @@ h1 {
 .level-icon {
     background-color: #e5f1ff;
     color: #1e293b;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-size: 24px;
     font-weight: bold;
     width: 40px;
@@ -346,6 +347,7 @@ h1 {
 }
 .level-icon2 {
     background-color: #e5ffea;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     color: #1e293b;
     font-size: 24px;
     font-weight: bold;
@@ -359,6 +361,7 @@ h1 {
 }
 .level-icon3 {
     background-color: #6ab070;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     color: #ffffff;
     font-size: 24px;
     font-weight: bold;
