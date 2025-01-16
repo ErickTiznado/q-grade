@@ -26,14 +26,13 @@ body {
 
 /* Sidebar (Ocupando columnas 1-3 y filas completas) */
 .div1 {
-  grid-area: 1 / 1 / 21 / 4; /* Desde fila 1 hasta fila 11, columnas 1 a 3 */
-  background-color: #1B5083; /* Color de fondo de la Sidebar */
+  grid-area: 1 / 1 / 21 / 6; /* Desde fila 1 hasta fila 11, columnas 1 a 3 */
   overflow-y: auto; /* Scroll en caso de contenido largo */
 }
 
 /* Header (Ocupando la parte superior, columnas 4-10) */
 .div2 {
-  grid-area: 1 / 4 / 4 / 21; /* Desde fila 1 hasta fila 2, columnas 4 a 10 */
+  grid-area: 1 / 6 / 4 / 21; /* Desde fila 1 hasta fila 2, columnas 4 a 10 */
   display: flex;
   align-items: center;
   padding: 0 20px;
@@ -41,7 +40,7 @@ body {
 
 /* Main Content (ChatBox, ocupa el resto del espacio) */
 .div3 {
-  grid-area: 4 / 4 / 21 / 21; /* Desde fila 3 hasta fila 11, columnas 4 a 10 */
+  grid-area: 4 / 6 / 21 / 21; /* Desde fila 3 hasta fila 11, columnas 4 a 10 */
   display: flex;
   align-items: center;
   justify-content: center;
