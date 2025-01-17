@@ -24,7 +24,7 @@ function Chat() {
             placeholder="Escribe tu mensaje aquí..."
           />
           <button>
-          <FontAwesomeIcon icon="paper-plane" />
+          <img src="/src/assets/images/Q-grade-Send.svg" alt="" />
           </button>
         </div>
       </main>

@@ -9,18 +9,20 @@ import "./components/chat/Chat";
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeComponent, setActiveComponent] = useState("ChatBox"); // Estado para controlar el contenido principal
+  const [selectedChatName, setSelectedChatName] = useState("");
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
   // Datos de ejemplo para el historial de chats
   const chats = [
-    { id: 1, name: "Chat 1" },
-    { id: 2, name: "Chat 2" },
+    { id: 1, name: "Metricas de Calidad" },
+    { id: 2, name: "ISO2510" },
   ];
 
   const handleSelectChat = (chatId) => {
-    console.log("Chat seleccionado:", chatId);
+    const selectedChat = chats.find((Chat) => Chat.id == chatId);
+    setSelectedChatName(selectedChat ? selectedChat.name : "");
   };
 
   // Función para cambiar el contenido principal
@@ -37,7 +39,7 @@ function App() {
 
       {/* Header */}
       <div className="div2">
-        <Header onOpenModal={handleOpenModal} />
+        <Header chatName={selectedChatName} />
       </div>
 
       {/* Main Content */}
