@@ -45,11 +45,13 @@
   .level-label {
     font-size: 1rem;
     font-weight: 600;
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.1);
+    color: #1B5083;
+    background-color: #C7E3FF;
     padding: 6px 12px;
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 28vw;
+    text-align: center;
   }
   
   /* Barra de progreso */
@@ -58,7 +60,7 @@
     align-items: center;
     position: relative;
     height: 30px;
-    width: 200px;
+    width: 28vw;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 0 5px;
@@ -70,12 +72,12 @@
     border-radius: 15px;
     background: #77CA9C;
     height: 20px;
-    width: 0;
+    width: 10px;
   }
   
   @keyframes load {
     0% { width: 0; }
-    100% { width: 68%; }
+    100% { width: 85%; }
   }
   
   .chart span {
@@ -106,4 +108,32 @@
 
   .user-icon .svg-inline--fa {
     font-size: 40px; /* Aumenta este valor para un ícono más grande */
+  }
+
+
+  .container{
+    padding: 10px;
+    background: #243B55;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 0px;
+    border-radius: 10px;
+
+  }
+
+  .progres-container{
+    grid-area: 1 / 1 / 2 / 5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .icon-container{
+    grid-area: 1 / 5 / 2 / 6;
+    display: flex;
+    align-items: start;
+    justify-content: end;
+    padding: 10px 15px;
   }
