@@ -29,7 +29,7 @@ function ChatBox({ onNavigateToChat }) {
           onChange={(e) => setUserMessage(e.target.value)}
         />
         <button className="send-button" onClick={handleSend}>
-          <FontAwesomeIcon icon="paper-plane" />
+          <img src="/src/assets/images/Q-grade-Send.svg" alt="" />
         </button>
       </div>
     </main>
