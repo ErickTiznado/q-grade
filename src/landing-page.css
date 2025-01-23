@@ -1,0 +1,400 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #1D3145;
+    color: white;
+    text-align: center;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #213950;;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4c83b79d;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #13212e9d;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    gap: 30px;
+    padding: 20px;
+    background-color: #2139509d;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    backdrop-filter: blur(30px);
+    z-index: 1000;
+}
+
+nav .menu-item {
+    position: relative;
+    margin: 0 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 0;
+    margin-right: 50px;
+    position: relative;
+}
+
+nav a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #ffffff;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+.submenu {
+    display: block;
+    position: fixed;
+    top: 50px;
+    background-color: #ffffff;
+    padding: 50px 20px;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.95);
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    backdrop-filter: blur(30px);
+    z-index: 1000;
+    
+   
+}
+
+.submenu a {
+    display: flex;
+    justify-content: space-between;
+    text-decoration: none;
+    color: black;
+    font-size: 12px;
+    padding: 10px 15px;
+    text-align: left;
+}
+
+
+.menu-item:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.content1, .content2{
+    margin-top: 60px;
+    padding: 150px; /* Reduce padding para dispositivos pequeños */
+    background-color: #1D3145;
+    color: white;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    justify-content: center;
+}
+
+.content2 {
+    background-color: #ffffff;
+    color: #000;
+}
+
+.content2 h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.boton-iniciar {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(90deg, #46B678, #9ca4ed);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 60px;
+    font-weight: bold;
+    margin-top: 20px;
+    animation: gradientAnimation 3s infinite;
+    transition: transform 0.3s ease;
+}
+
+.boton-iniciar:hover {
+    transform: scale(1.1);
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
+        margin-right: 0;
+    }
+
+    .content1, .content2 {
+        padding: 10px;
+    }
+
+    .content2 h1 {
+        font-size: 30px;
+    }
+
+    .boton-iniciar {
+        padding: 10px 30px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 10px;
+    }
+
+    .content2 h1 {
+        font-size: 24px;
+    }
+}
+
+.content3 {
+    display: flex; /* Activa flexbox para el diseño en línea */
+    flex-direction: row; /* Asegura que los elementos estén alineados horizontalmente */
+    justify-content: space-between; /* Espacio uniforme entre los elementos */
+    align-items: center; /* Alineación vertical centrada */
+    padding: 20px;
+    background-color: #213950;
+    color: white;
+    
+}
+
+.content3 .texto {
+    flex: 1; /* Permite que el texto ocupe espacio proporcional */
+    margin-right: 20px; /* Espaciado entre texto e imagen */
+    font-family: 'Roboto', sans-serif;
+}
+
+.content3 img {
+    max-width: 50%; /* Limita el ancho de la imagen */
+    height: auto; /* Mantiene las proporciones de la imagen */
+    border-radius: 10px;
+    object-fit: cover; /* Asegura que la imagen no se distorsione */
+}
+
+
+
+
+.carousel {
+    width: 80%;
+    max-width: 800px;
+    margin-top: auto;
+    overflow: hidden;
+    margin: auto;
+    position: relative;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+}
+
+.carousel-item {
+    min-width: 100%;
+    flex-shrink: 0;
+    position: relative;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-item img,
+.carousel-item video {
+    width: 100%; /* Las imágenes ocuparán todo el ancho del carrusel */
+    max-width: 100%; /* Asegura que las imágenes no excedan el ancho */
+    max-height: 400px; /* Asegura que las imágenes no excedan el alto del contenedor */
+    height: auto; /* Mantiene la proporción original */
+    border-radius: 15px;
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
+    filter: brightness(95%);
+}
+
+
+.carousel-date {
+    position: absolute;
+    top: 10px; /* Cambiado a la esquina superior */
+    left: 15px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.carousel-item:hover .carousel-date {
+    opacity: 1;
+}
+
+.carousel-buttons {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.carousel-buttons button {
+    pointer-events: auto;
+    background-color: rgba(0, 0, 0, 0.311);
+    border: none;
+    color: rgb(0, 255, 47);
+    width: 50px; /* Asegura que sea igual */
+    height: 50px; /* Igual al width */
+    border-radius: 50%; /* Hace el botón circular */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+.carousel-buttons button:hover {
+    transform: scale(1.1);
+}
+
+.carousel-buttons button:focus {
+    outline: none;
+}
+
+
+.content4 {
+    background-color: #1D3145;
+    padding: 80px;
+}
+
+
+
+
+h1 {
+    margin-bottom: 20px;
+    color: #a3bffa;
+   
+}
+
+.levels {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.level {
+    margin: 10px;
+    background-color: #ffffff;
+    color: #1e293b;
+    padding: 20px;
+    border-radius: 10px;
+    width: 30%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    min-height: 200px; /* Define una altura mínima para evitar cambios bruscos en el diseño */
+}
+.level:hover {
+    transform: scale(1.1);
+}
+
+
+
+
+.level-icon {
+    background-color: #e5f1ff;
+    color: #1e293b;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 24px;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.level-icon2 {
+    background-color: #e5ffea;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #1e293b;
+    font-size: 24px;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.level-icon3 {
+    background-color: #6ab070;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.level h2 {
+    margin-bottom: 10px;
+}
+
+.level p {
+    font-size: 14px;
+}
+
+.note {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #a3bffa;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    font-size: 14px;
+    text-align: left;
+    margin: 5px 0;
+}

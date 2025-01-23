@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Q-grade</title>
+        <link rel="stylesheet" href="src/Landing-page.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="icon" type="image/png" href="src/icon.png">
+    </head>
+
+<body>
+   
+    <nav>
+        <div class="menu-item">
+            <a href="#leveles">Modulos</a>
+            
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <a href="/index3.html">Acerca de</a>
+            
+      
+        </div>
+
+    </nav>
+
+
+    <div class="content1">
+
+     <img src="src/Logo.png" alt="Logo" class="logo" height="200px" width="200px">
+   
+
+    </div>
+
+    <div class="content2">
+
+        <h1>La calidad es el centro de tu aprendizaje.</h1>
+        <p>Con Q-Grade, optimiza tu conocimiento en calidad de manera personalizada</p>
+
+        <a class="boton-iniciar" href="index.html">Inicia ahora</a>
+   
+       </div>
+
+
+       <div class="content3">
+
+
+        <div class="texto">
+            <h2>¿Como se usa?</h2>
+            <p class="note">Nota: Solo se avanza de nivel al completar los temas del nivel actual. Preguntar sobre niveles avanzados sin cumplir el nivel actual no permite avanzar.</p>
+        </div>
+        <div class="carousel">
+            <div class="carousel-track">
+                <div class="carousel-item">
+                    <img src="src/multimedia/2.jpg" alt="Imagen de Q-Grade 1">
+                    <div class="carousel-date">Texto Indicativo</div>
+                </div>
+                <div class="carousel-item">
+                    <video loop muted autoplay controlsList="nodownload noremoteplayback">
+                        <source src="src/multimedia/3.mp4" type="video/mp4">
+                        Tu navegador no soporta videos HTML5.
+                    </video>
+                    <div class="carousel-date">Texto Indicativo</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="src/multimedia/2.jpg" alt="Imagen de Q-Grade 2">
+                    <div class="carousel-date">Texto Indicativo</div>
+                </div>
+                <div class="carousel-item">
+                    <video muted autoplay controlsList="nodownload noremoteplayback">
+                        <source src="src/multimedia/3.mp4" type="video/mp4">
+                        Tu navegador no soporta videos HTML5.
+                    </video>
+                    <div class="carousel-date">Texto Indicativo</div>
+                </div>
+                <div class="carousel-item">
+                    <img src="src/multimedia/2.jpg" alt="Imagen de Q-Grade 3">
+                    <div class="carousel-date">Texto Indicativo</div>
+                </div>
+            </div>
+            <div class="carousel-buttons">
+                <button id="prevButton" aria-label="Anterior">&#10094;</button>
+                <button id="nextButton" aria-label="Siguiente">&#10095;</button>
+            </div>
+        </div>
+       </div>
+
+
+
+
+       <div class="content4">
+        
+        <div id = "leveles" class="containerzz">
+            <h1>Niveles de aprendizaje</h1>
+            <p class="note">Dale clic a cualquier nivel para ver su contenido</p>
+            <div class="levels">
+                <div class="level" onclick="toggleText(this)">
+                    <div class="level-icon"><img src="src/multimedia/1.png" alt="Imagen de Q-Grade 1" height="10px" width="13px"></div>
+                    <h2>Nivel Básico</h2>
+                    <ul>
+                        <li>Ideal para principiantes. Aprende los fundamentos de calidad y da tus primeros pasos en la gestión de procesos.</li>
+                    </ul>
+                </div>
+                <div class="level" onclick="toggleText2(this)">
+                    <div class="level-icon2"><img src="src/multimedia/2.png" alt="Imagen de Q-Grade 1" height="10px" width="18px"></div>
+                    <h2>Nivel Intermedio</h2>
+                    <ul>
+                        <li>Para quienes buscan profundizar. Domina herraminetas y estrategias practicas para optimizar la calidad.</li>
+                    </ul>
+                </div>
+                <div class="level" onclick="toggleText3(this)">
+                    <div class="level-icon3"><img src="src/multimedia/3.png" alt="Imagen de Q-Grade 1" height="10px" width="18px"></div>
+                    <h2>Nivel Avanzado</h2>
+                    <ul>
+                        <li>Perfecciona tus conocimientos y convertirte en un experto en calidad, aplicando soluciones avanzadas a problemas reales.<li>
+                    </ul>
+                </div>
+            </div>
+            <p class="note">Nota: Solo se avanza de nivel al completar los temas del nivel actual. Preguntar sobre niveles avanzados sin cumplir el nivel actual no permite avanzar.</p>
+        </div>
+    </div>
+    
+
+       <script>
+function toggleText(element) {
+    const title = element.querySelector('h2');
+    const list = element.querySelector('ul');
+    
+    if (title.innerHTML === 'Nivel Básico') {
+        title.innerHTML = 'Temas';
+        list.innerHTML = `
+            <li>Introducción a la calidad del software</li>
+            <li>Calidad del Software una Perspectiva Continua</li>
+            <li>Planificación, Gestión y Control de la Calidad del Software</li>
+            <li>Calidad en el Desarrollo de software</li>
+        `;
+    } else {
+        title.innerHTML = 'Nivel Básico';
+        list.innerHTML = `
+            <li>Ideal para principiantes. Aprende los fundamentos de calidad y da tus primeros pasos en la gestión de procesos.</li>
+        `;
+    }
+}
+
+function toggleText2(element) {
+    const title = element.querySelector('h2');
+    const list = element.querySelector('ul');
+    
+    if (title.innerHTML === 'Nivel Intermedio') {
+        title.innerHTML = 'Temas';
+        list.innerHTML = `
+            <li>Modelos y estandares de calidad.</li></li>
+      
+        `;
+    } else {
+        title.innerHTML = 'Nivel Intermedio';
+        list.innerHTML = `
+            <li>Para quienes buscan profundizar. Domina herraminetas y estrategias practicas para optimizar la calidad.</li>
+        `;
+    }
+}
+
+
+function toggleText3(element) {
+    const title = element.querySelector('h2');
+    const list = element.querySelector('ul');
+    
+    if (title.innerHTML === 'Nivel Avanzado') {
+        title.innerHTML = 'Temas';
+        list.innerHTML = `
+            <li>Metricas formales de calidad.</li>
+          
+        `;
+    } else {
+        title.innerHTML = 'Nivel Avanzado';
+        list.innerHTML = `
+            <li>Perfecciona tus conocimientos y convertirte en un experto en calidad, aplicando soluciones avanzadas a problemas reales.</li>
+        `;
+    }
+}
+
+const carouselTrack = document.querySelector('.carousel-track');
+    const items = document.querySelectorAll('.carousel-item');
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    let currentIndex = 0;
+
+    // Función para actualizar el carrusel
+    function updateCarousel(index) {
+        carouselTrack.style.transform = `translateX(-${index * 100}%)`;
+        currentIndex = index;
+    }
+
+    // Función para avanzar al siguiente elemento
+    function nextSlide() {
+        const nextIndex = (currentIndex + 1) % items.length;
+        updateCarousel(nextIndex);
+    }
+
+    // Evento para avanzar al siguiente slide al terminar un video
+    items.forEach((item, index) => {
+        const video = item.querySelector('video');
+        if (video) {
+            video.addEventListener('ended', () => {
+                if (currentIndex === index) {
+                    nextSlide();
+                }
+            });
+        }
+    });
+
+    // Botones para avanzar y retroceder
+    prevButton.addEventListener('click', () => {
+        const prevIndex = (currentIndex - 1 + items.length) % items.length;
+        updateCarousel(prevIndex);
+    });
+
+    nextButton.addEventListener('click', () => {
+        nextSlide();
+    });
+
+    // Avanzar automáticamente cada 5 segundos si no es un video
+    setInterval(() => {
+        const currentVideo = items[currentIndex].querySelector('video');
+        if (!currentVideo || currentVideo.ended) {
+            nextSlide();
+        }
+    }, 5000);
+
+    // Inicializar el carrusel
+    updateCarousel(0);
+        </script>
+</body>
+</html>
