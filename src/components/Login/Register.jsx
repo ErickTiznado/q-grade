@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import '../Login/Register.css'
+import '../Login/Register.css';
+
 const Register = () => {
-  // Estado para los campos del formulario
   const [nombres, setNombres] = useState('');
   const [apellidos, setApellidos] = useState('');
   const [email, setEmail] = useState('');
@@ -12,13 +12,11 @@ const Register = () => {
   const [errores, setErrores] = useState({});
   const [mensajeExito, setMensajeExito] = useState('');
 
-  // Validación en tiempo real
   const handleSubmit = (e) => {
     e.preventDefault();
     let valid = true;
     const errores = {};
 
-    // Validaciones
     if (!nombres) {
       errores.nombres = 'El nombre es obligatorio';
       valid = false;
@@ -125,27 +123,44 @@ const Register = () => {
           {errores.confirmPassword && <span className="error">{errores.confirmPassword}</span>}
         </div>
 
+        {/* Botones de opción (radio buttons) para Perfil (en columna) */}
         <div className="form-group">
-          <label htmlFor="perfil">Perfil</label>
-          <select
-            id="perfil"
-            value={perfil}
-            onChange={(e) => setPerfil(e.target.value)}
-            required
-          >
-            <option value="Estudiante">Estudiante</option>
-            <option value="Otro">Otro</option>
-          </select>
+          <label>Perfil</label>
+          <div className="radio-group">
+            <label>
+              <input
+                type="radio"
+                name="perfil"
+                value="Estudiante"
+                checked={perfil === 'Estudiante'}
+                onChange={(e) => setPerfil(e.target.value)}
+              />
+              Estudiante
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="perfil"
+                value="Otro"
+                checked={perfil === 'Otro'}
+                onChange={(e) => setPerfil(e.target.value)}
+              />
+              Otro
+            </label>
+          </div>
         </div>
 
-        <div className="form-group">
-          <label>
-            <input
-              type="checkbox"
-              checked={terminos}
-              onChange={() => setTerminos(!terminos)}
-            />
-            Acepto los <a href="/terminos">términos y condiciones</a>
+        {/* Checkbox para aceptar términos y condiciones */}
+        <div className="form-group checkbox-group">
+          <input
+            type="checkbox"
+            id="terminos"
+            checked={terminos}
+            onChange={() => setTerminos(!terminos)}
+          />
+          <label htmlFor="terminos">
+            Acepto los <a href="/terminos" style={{ color: 'blue', textDecoration: 'none' }}>términos y condiciones</a>
           </label>
           {errores.terminos && <span className="error">{errores.terminos}</span>}
         </div>

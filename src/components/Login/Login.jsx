@@ -76,8 +76,8 @@ const Login = () => {
         {mensajeError && <p className="error-message">{mensajeError}</p>}
 
         <div className="links">
-          <p>¿No tienes cuenta? <a href="/register">Regístrate aquí</a></p>
-          <p><a href="/recover-password">Olvidaste tu contraseña</a></p>
+        <p>¿No tienes cuenta? <a href="/register" style={{ color: 'green', textDecoration: 'none' }}>Regístrate aquí</a></p>
+        <p>¿Olvidaste tu contraseña? <a href="/recuperar"style={{ color: 'blue', textDecoration: 'none' }}>Recuperala aqui</a></p>
         </div>
       </form>
     </div>
