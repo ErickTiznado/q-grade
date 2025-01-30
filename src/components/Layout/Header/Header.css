@@ -1,0 +1,109 @@
+/* src/components/Layout/Header/Header.css */
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+  }
+  
+  /* Tooltip para el nivel */
+  .tooltip {
+    position: relative;
+    display: inline-flex;
+    cursor: help;
+  }
+  
+  .tooltiptext {
+    visibility: hidden;
+    width: 180px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 999;
+    bottom: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 13px;
+    line-height: 1.2;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  /* Etiqueta de nivel */
+  .level-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Barra de progreso */
+  .chart {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 30px;
+    width: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 0 5px;
+  }
+  
+  .bar {
+    animation: load 3s normal forwards;
+    box-shadow: 0 2px 10px -2px #fff;
+    border-radius: 15px;
+    background: #77CA9C;
+    height: 20px;
+    width: 0;
+  }
+  
+  @keyframes load {
+    0% { width: 0; }
+    100% { width: 68%; }
+  }
+  
+  .chart span {
+    margin-left: 8px;
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  /* Ícono de usuario */
+  .user-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #1B5083;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .user-icon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+
+  .user-icon .svg-inline--fa {
+    font-size: 40px; /* Aumenta este valor para un ícono más grande */
+  }
