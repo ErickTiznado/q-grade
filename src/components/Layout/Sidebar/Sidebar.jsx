@@ -35,7 +35,7 @@ function Sidebar({ chats, onSelectChat }) {
 
         {/* LOGO */}
         <div className="logo">
-          <img src="/src/assets/images/Q-Grade logo.svg" alt="Q-Grade Logo" />
+          <img src="/imag/Q-Grade.svg" alt="Q-Grade Logo" />
         </div>
 
         {/* Historial de Chat */}
@@ -50,7 +50,7 @@ function Sidebar({ chats, onSelectChat }) {
                 className="hover-scale"
                 onClick={() => onSelectChat(chat.id)}
               >
-              {chat.name}
+                <span>{chat.name}</span>
                 <span className="options" onClick={toggleDropdown}>
                   <FontAwesomeIcon icon="ellipsis-vertical" />
                 </span>

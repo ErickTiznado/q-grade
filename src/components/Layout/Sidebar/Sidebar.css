@@ -2,14 +2,16 @@
 
 .sidebar {
     background-color: #1B5083;
-    width: 100%;
+    width: 300px; /* Ancho fijo */
     height: 100vh;
+    position: fixed;
     display: flex;
     flex-direction: column;
     padding: 20px;
     box-sizing: border-box;
     transition: transform 0.3s ease-in-out;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 999; /* Asegura que se muestre encima de otros elementos */
   }
   
   .sidebar.show {

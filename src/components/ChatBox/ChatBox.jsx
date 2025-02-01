@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import "./ChatBox.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState } from 'react';
+import './ChatBox.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function ChatBox({ onNavigateToChat }) {
-  const [userMessage, setUserMessage] = useState("");
+function ChatBox() {
+  const [userMessage, setUserMessage] = useState('');
 
   const handleSend = () => {
     const trimmedMessage = userMessage.trim();
@@ -11,8 +11,9 @@ function ChatBox({ onNavigateToChat }) {
       alert("Por favor, escribe un mensaje antes de enviar.");
       return;
     }
-    // Aquí puedes integrar lógica adicional
-    onNavigateToChat(); // Cambiar al componente Chat
+    // Aquí podrías integrar la lógica para enviar el mensaje a la API u otra función
+    alert('¡Mensaje enviado o acción realizada!');
+    setUserMessage('');
   };
 
   return (
@@ -29,7 +30,7 @@ function ChatBox({ onNavigateToChat }) {
           onChange={(e) => setUserMessage(e.target.value)}
         />
         <button className="send-button" onClick={handleSend}>
-          <img src="/src/assets/images/Q-grade-Send.svg" alt="" />
+          <FontAwesomeIcon icon="paper-plane" />
         </button>
       </div>
     </main>
