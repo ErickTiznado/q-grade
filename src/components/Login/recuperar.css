@@ -1,0 +1,82 @@
+.recuperar-container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 33px;
+    background-color: white;
+  }
+  
+  .steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .step {
+    width: 30px;
+    height: 30px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .step.active {
+    background-color: #3CB371;
+    color: white;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #3CB371;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 15px;
+    
+  }
+  
+  button:hover {
+    background-color: #3CB371;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  p {
+    color: black;
+    font-size: 12px;
+  }
+  
+  .resend-message {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .resend-message button {
+    background: none;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  body{
+    background-color: #102A43; /* Color oscuro de fondo */
+  }
