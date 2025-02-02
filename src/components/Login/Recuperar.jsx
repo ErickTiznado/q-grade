@@ -1,77 +1,118 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import '../Login/recuperar.css'
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import "../Login/recuperar.css";
 
 const Recuperar = () => {
   const [step, setStep] = useState(1);
-  const [nuevaContraseña, setNuevaContraseña] = useState('');
-  const [confirmarContraseña, setConfirmarContraseña] = useState('');
-  const [codigo, setCodigo] = useState('');
-  const [mensajeExito, setMensajeExito] = useState('');
+  const [email, setEmail] = useState("");
+  const [nuevaContraseña, setNuevaContraseña] = useState("");
+  const [confirmarContraseña, setConfirmarContraseña] = useState("");
+  const [codigo, setCodigo] = useState("");
+  const [mensajeExito, setMensajeExito] = useState("");
   const [errores, setErrores] = useState({});
-  const [mostrarMensaje, setMostrarMensaje] = useState(false); // Estado para mostrar el mensaje
+  const [mostrarMensaje, setMostrarMensaje] = useState(false);
 
   useEffect(() => {
     if (step === 2) {
       const timer = setTimeout(() => {
-        setMostrarMensaje(true); // Mostrar el mensaje después de 2 segundos
+        setMostrarMensaje(true);
       }, 2000);
-      
-      return () => clearTimeout(timer); // Limpiar el temporizador si el paso cambia antes de 2 segundos
+      return () => clearTimeout(timer);
     }
   }, [step]);
 
-  const handleStepChange = (e) => {
+  // 🟢 Paso 1: Solicitar código de recuperación
+  const solicitarCodigo = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:5000/api/solicitar-recuperacion", { email });
+      setStep(2);
+    } catch (error) {
+      setErrores({ email: error.response?.data?.message || "Error al solicitar código." });
+    }
+  };
+
+  // 🔵 Paso 2: Verificar código y cambiar contraseña
+  const cambiarContraseña = async (e) => {
     e.preventDefault();
     let valid = true;
     const errores = {};
 
-    // Validación para el paso 1
-    if (step === 1) {
-      if (!nuevaContraseña || nuevaContraseña.length < 8) {
-        errores.nuevaContraseña = 'La nueva contraseña debe tener al menos 8 caracteres';
-        valid = false;
-      }
-      if (nuevaContraseña !== confirmarContraseña) {
-        errores.confirmarContraseña = 'Las contraseñas no coinciden';
-        valid = false;
-      }
+    if (!nuevaContraseña || nuevaContraseña.length < 8) {
+      errores.nuevaContraseña = "Debe tener al menos 8 caracteres";
+      valid = false;
     }
-    // Validación para el paso 2
-    if (step === 2 && !codigo) {
-      errores.codigo = 'El código es obligatorio';
+    if (nuevaContraseña !== confirmarContraseña) {
+      errores.confirmarContraseña = "Las contraseñas no coinciden";
+      valid = false;
+    }
+    if (!codigo) {
+      errores.codigo = "El código es obligatorio";
       valid = false;
     }
 
-    setErrores(errores);
-
-    if (valid) {
-      if (step === 1) {
-        setStep(2);
-      } else if (step === 2) {
-        setStep(3);
-        setMensajeExito('¡Cuenta recuperada exitosamente, Puedes iniciar sesión con su nueva contraseña.');
-      }
+    if (!valid) {
+      setErrores(errores);
+      return;
     }
-  };
 
-  const handleNuevoCodigo = () => {
-    setMostrarMensaje(false); // Ocultar el mensaje de nuevo código
-    setCodigo(''); // Limpiar el campo de código
+    try {
+      await axios.post("http://localhost:5000/api/reset-password", {
+        email,
+        codigo,
+        nuevaContraseña,
+      });
+      setStep(3);
+      setMensajeExito("¡Cuenta recuperada exitosamente! Ahora puedes iniciar sesión.");
+    } catch (error) {
+      setErrores({ codigo: error.response?.data?.message || "Código incorrecto o expirado." });
+    }
   };
 
   return (
     <div className="recuperar-container">
       <div className="steps">
-        <span className={step === 1 ? 'step active' : 'step'}>1</span>
-        <span className={step === 2 ? 'step active' : 'step'}>2</span>
-        <span className={step === 3 ? 'step active' : 'step'}>3</span>
+        <span className={step === 1 ? "step active" : "step"}>1</span>
+        <span className={step === 2 ? "step active" : "step"}>2</span>
+        <span className={step === 3 ? "step active" : "step"}>3</span>
       </div>
 
       <h2>Recuperar Contraseña</h2>
-      
+
       {step === 1 && (
-        <form onSubmit={handleStepChange}>
+        <form onSubmit={solicitarCodigo}>
+          <div className="form-group">
+            <label htmlFor="email">Correo Electrónico</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Introduce tu correo"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            {errores.email && <span className="error">{errores.email}</span>}
+          </div>
+          <button type="submit">Solicitar Código</button>
+        </form>
+      )}
+
+      {step === 2 && (
+        <form onSubmit={cambiarContraseña}>
+          <div className="form-group">
+            <p>Hemos enviado un código de 5 dígitos a su correo electrónico</p>
+            <input
+              type="text"
+              id="codigo"
+              placeholder="Introduce el código"
+              value={codigo}
+              onChange={(e) => setCodigo(e.target.value)}
+              required
+            />
+            {errores.codigo && <span className="error">{errores.codigo}</span>}
+          </div>
+
           <div className="form-group">
             <label htmlFor="nuevaContraseña">Crear nueva contraseña</label>
             <input
@@ -99,31 +140,11 @@ const Recuperar = () => {
           </div>
 
           <button type="submit">Recuperar</button>
-        </form>
-      )}
-
-      {step === 2 && (
-        <form onSubmit={handleStepChange}>
-          <div className="form-group">
-            <p>Hemos enviado un código de 5 dígitos a su  correo electrónico</p>
-            <input
-              type="text"
-              id="codigo"
-              placeholder="Introduce el código"
-              value={codigo}
-              onChange={(e) => setCodigo(e.target.value)}
-              required
-            />
-          
-            {errores.codigo && <span className="error">{errores.codigo}</span>}
-          </div>
-
-          <button type="submit">Recuperar</button>
 
           {mostrarMensaje && (
             <p className="resend-message">
-              ¿No ha caído el código?{' '}
-              <button type="button" onClick={handleNuevoCodigo}>
+              ¿No has recibido el código?{" "}
+              <button type="button" onClick={() => setCodigo("")}>
                 Solicita uno nuevo
               </button>
             </p>

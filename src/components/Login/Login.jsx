@@ -1,49 +1,55 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importa el hook para redirección
-import '../Login/Login.css'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../Login/Login.css";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errores, setErrores] = useState({});
-  const [mensajeError, setMensajeError] = useState('');
-  const navigate = useNavigate(); // Hook para redirección
+  const [mensajeError, setMensajeError] = useState("");
+  const navigate = useNavigate();
 
-  // Validación y envío de formulario
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let valid = true;
     const errores = {};
 
-    // Validación de correo electrónico
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
-      errores.email = 'Correo electrónico inválido';
+      errores.email = "Correo electrónico inválido";
       valid = false;
     }
 
-    // Validación de contraseña
     if (!password) {
-      errores.password = 'La contraseña es obligatoria';
+      errores.password = "La contraseña es obligatoria";
       valid = false;
     }
 
     setErrores(errores);
 
     if (valid) {
-      // Aquí puedes agregar la lógica para verificar las credenciales del usuario.
-      // Si el inicio de sesión es exitoso, redirigimos al usuario.
-      if (email === 'usuario@qgrade.com' && password === 'password123') {
-        // Redirigir al usuario a la pantalla de inicio
-        navigate('/dashboard'); // Cambia '/dashboard' por la ruta a la que quieres redirigir
-      } else {
-        setMensajeError('Credenciales inválidas');
+      try {
+        const response = await fetch("http://localhost:5000/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          navigate("/dashboard"); // Redirigir a la pantalla deseada
+        } else {
+          setMensajeError(data.message);
+        }
+      } catch (error) {
+        setMensajeError("Error en el servidor. Inténtalo más tarde.");
       }
     }
   };
 
   return (
     <div className="login-container">
-      <h2>Iniciar sesión</h2>
+      <h2>Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Correo electrónico</label>
@@ -76,8 +82,18 @@ const Login = () => {
         {mensajeError && <p className="error-message">{mensajeError}</p>}
 
         <div className="links">
-        <p>¿No tienes cuenta? <a href="/register" style={{ color: 'green', textDecoration: 'none' }}>Regístrate aquí</a></p>
-        <p>¿Olvidaste tu contraseña? <a href="/recuperar"style={{ color: 'blue', textDecoration: 'none' }}>Recuperala aqui</a></p>
+          <p>
+            ¿No tienes cuenta?{" "}
+            <a href="/register" style={{ color: "green", textDecoration: "none" }}>
+              Regístrate aquí
+            </a>
+          </p>
+          <p>
+            ¿Olvidaste tu contraseña?{" "}
+            <a href="/recuperar" style={{ color: "blue", textDecoration: "none" }}>
+              Recupérala aquí
+            </a>
+          </p>
         </div>
       </form>
     </div>
