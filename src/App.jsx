@@ -1,55 +1,44 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import Login from "./components/Login/Login";
+import Register from "./components/Login/Register";
+import Recuperar from "./components/Login/Recuperar";
 import Header from "./components/Layout/Header/Header";
 import Sidebar from "./components/Layout/Sidebar/Sidebar";
-import ChatBox from "./components/ChatBox/ChatBox";
-import Chat from "./components/chat/Chat"; // Asegúrate de importar tu nuevo componente
+import ChatWelcome from "./components/Chat/ChatWelcome";
+import ChatInput from './components/Chat/ChatInput';
 import "./App.css";
-import "./components/chat/Chat";
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeComponent, setActiveComponent] = useState("ChatBox"); // Estado para controlar el contenido principal
-  const [selectedChatName, setSelectedChatName] = useState("");
-
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
-
-  // Datos de ejemplo para el historial de chats
-  const chats = [
-    { id: 1, name: "Metricas de Calidad" },
-    { id: 2, name: "ISO2510" },
-  ];
-
-  const handleSelectChat = (chatId) => {
-    const selectedChat = chats.find((Chat) => Chat.id == chatId);
-    setSelectedChatName(selectedChat ? selectedChat.name : "");
-  };
-
-  // Función para cambiar el contenido principal
-  const handleNavigateToChat = () => {
-    setActiveComponent("Chat");
-  };
+  const [message, setMessage] = useState('');
+  const [showSidebar, setShowSidebar] = useState(true);
 
   return (
-    <div className="parent">
-      {/* Sidebar */}
-      <div className="div1">
-        <Sidebar chats={chats} onSelectChat={handleSelectChat} />
-      </div>
+    <Router>
+      <Routes>
+        {/* Rutas de autenticación */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/recuperar" element={<Recuperar />} />
 
-      {/* Header */}
-      <div className="div2">
-        <Header chatName={selectedChatName} />
-      </div>
-
-      {/* Main Content */}
-      <div className="div3">
-        {activeComponent === "ChatBox" && (
-          <ChatBox onNavigateToChat={handleNavigateToChat} />
-        )}
-        {activeComponent === "Chat" && <Chat />}
-      </div>
-    </div>
+        {/* Ruta principal de la aplicación */}
+        <Route 
+          path="/app" 
+          element={
+            <div className="app">
+              <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar}/>
+              <main className="main">
+                <div className="chat">
+                  <ChatWelcome/>
+                </div>
+                <ChatInput message={message} setMessage={setMessage}/>
+              </main>   
+            </div>
+          } 
+        />
+      </Routes>
+    </Router>
   );
 }
 
