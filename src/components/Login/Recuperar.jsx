@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import "../Login/recuperar.css";
+import React, { useState, useEffect } from "react"; // Importa React y los hooks useState y useEffect
+import { Link } from "react-router-dom"; // Importa Link para la navegación entre rutas
+import axios from "axios"; // Importa axios para realizar solicitudes HTTP
+import "../Login/recuperar.css"; // Importa los estilos CSS para el componente de recuperación de contraseña
 
 const Recuperar = () => {
-  const [step, setStep] = useState(1);
-  const [email, setEmail] = useState("");
-  const [nuevaContraseña, setNuevaContraseña] = useState("");
-  const [confirmarContraseña, setConfirmarContraseña] = useState("");
-  const [codigo, setCodigo] = useState("");
-  const [mensajeExito, setMensajeExito] = useState("");
-  const [errores, setErrores] = useState({});
-  const [mostrarMensaje, setMostrarMensaje] = useState(false);
+  // Definición de estados para manejar el proceso de recuperación de contraseña
+  const [step, setStep] = useState(1); // Estado para manejar los pasos del proceso
+  const [email, setEmail] = useState(""); // Estado para almacenar el email del usuario
+  const [nuevaContraseña, setNuevaContraseña] = useState(""); // Estado para la nueva contraseña
+  const [confirmarContraseña, setConfirmarContraseña] = useState(""); // Estado para confirmar la contraseña
+  const [codigo, setCodigo] = useState(""); // Estado para almacenar el código de recuperación
+  const [mensajeExito, setMensajeExito] = useState(""); // Estado para mostrar mensajes de éxito
+  const [errores, setErrores] = useState({}); // Estado para almacenar los mensajes de error
+  const [mostrarMensaje, setMostrarMensaje] = useState(false); // Estado para mostrar mensaje de reenvío
 
   useEffect(() => {
     if (step === 2) {
@@ -71,8 +72,8 @@ const Recuperar = () => {
   };
 
   return (
-    <div className="recuperar-container">
-      <div className="steps">
+    <div className="recuperar-container"> {/* Contenedor principal del formulario */}
+      <div className="steps"> {/* Indicadores de pasos */}
         <span className={step === 1 ? "step active" : "step"}>1</span>
         <span className={step === 2 ? "step active" : "step"}>2</span>
         <span className={step === 3 ? "step active" : "step"}>3</span>
@@ -81,7 +82,7 @@ const Recuperar = () => {
       <h2>Recuperar Contraseña</h2>
 
       {step === 1 && (
-        <form onSubmit={solicitarCodigo}>
+        <form onSubmit={solicitarCodigo}> {/* Formulario de solicitud de código */}
           <div className="form-group">
             <label htmlFor="email">Correo Electrónico</label>
             <input
@@ -99,7 +100,7 @@ const Recuperar = () => {
       )}
 
       {step === 2 && (
-        <form onSubmit={cambiarContraseña}>
+        <form onSubmit={cambiarContraseña}> {/* Formulario para ingresar código y nueva contraseña */}
           <div className="form-group">
             <p>Hemos enviado un código de 5 dígitos a su correo electrónico</p>
             <input
@@ -140,15 +141,6 @@ const Recuperar = () => {
           </div>
 
           <button type="submit">Recuperar</button>
-
-          {mostrarMensaje && (
-            <p className="resend-message">
-              ¿No has recibido el código?{" "}
-              <button type="button" onClick={() => setCodigo("")}>
-                Solicita uno nuevo
-              </button>
-            </p>
-          )}
         </form>
       )}
 
@@ -164,4 +156,4 @@ const Recuperar = () => {
   );
 };
 
-export default Recuperar;
+export default Recuperar; // Exporta el componente Recuperar para ser utilizado en la aplicación
