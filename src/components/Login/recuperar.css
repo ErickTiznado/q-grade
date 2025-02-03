@@ -1,27 +1,48 @@
 .recuperar-container {
-    max-width: 400px;
-    margin: auto;
+    width: 100%;
+    max-width: 500px;
+    
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 33px;
     background-color: white;
   }
   
+  .recup-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 100px 0;
+  }
+
+  .restore-title{
+    color: var(--color-primary-dark);
+  }
+
+  .restore-label{
+    padding: var(--space-md) 0;
+    color: var(--color-primary-dark);
+  }
+
   .steps {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    text-align: center;
   }
   
   .step {
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
     background-color: #ddd;
     border-radius: 50%;
-    display: inline-block;
+    display: flex;
     line-height: 30px;
     text-align: center;
     font-weight: bold;
+    color: var(--color-accent);
+    font-size: larger;
+    justify-content: center;
+    align-items: center;
   }
   
   .step.active {
@@ -39,7 +60,7 @@
     margin-top: 5px;
   }
   
-  button {
+  .restore-submit {
     padding: 10px 20px;
     background-color: #3CB371;
     color: white;

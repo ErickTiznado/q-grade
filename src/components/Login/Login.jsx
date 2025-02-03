@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Login/Login.css";
+import {Logo} from '../UI/Logo'
+
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -47,12 +50,16 @@ const Login = () => {
     }
   };
 
+
+
   return (
+  <main className="container">
+    <Logo className={'Logo'}/>
     <div className="login-container">
-      <h2>Iniciar Sesión</h2>
+      <h2 className="login-title">Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="email">Correo electrónico</label>
+          <label className="form-label" htmlFor="email">Correo electrónico</label>
           <input
             type="email"
             id="email"
@@ -65,7 +72,7 @@ const Login = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="password">Contraseña</label>
+          <label className="form-label" htmlFor="password">Contraseña</label>
           <input
             type="password"
             id="password"
@@ -77,26 +84,26 @@ const Login = () => {
           {errores.password && <span className="error">{errores.password}</span>}
         </div>
 
-        <button type="submit">Iniciar sesión</button>
+        <button className='login-submit' type="submit">Iniciar sesión</button>
 
         {mensajeError && <p className="error-message">{mensajeError}</p>}
-
-        <div className="links">
-          <p>
+      </form>
+      <div className="links">
+          <p className="login-links">
             ¿No tienes cuenta?{" "}
-            <a href="/register" style={{ color: "green", textDecoration: "none" }}>
+            <a className="link-registrar" href="/register">
               Regístrate aquí
             </a>
           </p>
-          <p>
+          <p className="login-links">
             ¿Olvidaste tu contraseña?{" "}
-            <a href="/recuperar" style={{ color: "blue", textDecoration: "none" }}>
+            <a className="link-recuperar" href="/recuperar">
               Recupérala aquí
             </a>
           </p>
         </div>
-      </form>
     </div>
+    </main>
   );
 };
 

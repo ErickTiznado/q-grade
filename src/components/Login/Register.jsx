@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import '../Login/Register.css';
+import { Logo } from '../UI/Logo';
+
+
 
 const Register = () => {
   const [nombres, setNombres] = useState('');
@@ -54,47 +57,49 @@ const Register = () => {
   };
 
   return (
+  <main className='container'>
+    <Logo className={'logo'}/>
     <div className="register-container">
-      <h2>Crear Cuenta</h2>
+      <h2 className='register-title' >Crear Cuenta</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="nombres">Nombres</label>
+          <label  className='register-label'  htmlFor="nombres">Nombres</label>
           <input type="text" id="nombres" value={nombres} onChange={(e) => setNombres(e.target.value)} required />
           {errores.nombres && <span className="error">{errores.nombres}</span>}
         </div>
 
         <div className="form-group">
-          <label htmlFor="apellidos">Apellidos</label>
+          <label  className='register-label' htmlFor="apellidos">Apellidos</label>
           <input type="text" id="apellidos" value={apellidos} onChange={(e) => setApellidos(e.target.value)} required />
           {errores.apellidos && <span className="error">{errores.apellidos}</span>}
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Correo electrónico</label>
+          <label  className='register-label' htmlFor="email">Correo electrónico</label>
           <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           {errores.email && <span className="error">{errores.email}</span>}
         </div>
 
         <div className="form-group">
-          <label htmlFor="password">Contraseña</label>
+          <label  className='register-label' htmlFor="password">Contraseña</label>
           <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           {errores.password && <span className="error">{errores.password}</span>}
         </div>
 
         <div className="form-group">
-          <label htmlFor="confirmPassword">Confirmación de contraseña</label>
+          <label  className='register-label' htmlFor="confirmPassword">Confirmación de contraseña</label>
           <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
           {errores.confirmPassword && <span className="error">{errores.confirmPassword}</span>}
         </div>
 
         <div className="form-group">
-          <label>¿Eres?</label>
+          <label className='register-label' >¿Eres?</label>
           <div className="radio-group">
-            <label>
+            <label className='register-label' >
               <input type="radio" name="perfil" value="Estudiante" checked={perfil === 'Estudiante'} onChange={(e) => setPerfil(e.target.value)} />
               Estudiante
             </label>
-            <label>
+            <label className='register-label' >
               <input type="radio" name="perfil" value="Otro" checked={perfil === 'Otro'} onChange={(e) => setPerfil(e.target.value)} />
               Otro
             </label>
@@ -103,19 +108,20 @@ const Register = () => {
 
         <div className="form-group checkbox-group">
           <input type="checkbox" id="terminos" checked={terminos} onChange={() => setTerminos(!terminos)} />
-          <label htmlFor="terminos">
+          <label  className='register-label' htmlFor="terminos">
             Acepto los <a href="/terminos" style={{ color: 'blue', textDecoration: 'none' }}>términos y condiciones</a>
           </label>
           {errores.terminos && <span className="error">{errores.terminos}</span>}
         </div>
 
-        <button type="submit">Registrarse</button>
+        <button className='register-submit' type="submit">Registrarse</button>
       </form>
 
       {mensajeExito && <p className="success-message">{mensajeExito}</p>}
 
-      <p>¿Ya tienes una cuenta? <a href="/login">Inicia sesión aqui.</a></p>
+      <p className='login-Link'>¿Ya tienes una cuenta? <a href="/login">Inicia sesión aqui.</a></p>
     </div>
+    </main>
   );
 };
 

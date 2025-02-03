@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../Login/recuperar.css";
+import {Logo} from '../UI/Logo';
+
 
 const Recuperar = () => {
   const [step, setStep] = useState(1);
@@ -71,19 +73,22 @@ const Recuperar = () => {
   };
 
   return (
-    <div className="recuperar-container">
+  <main className="container">
+      <Logo className={'Logo'}/>
+    
+    <div className="recup-container">
       <div className="steps">
         <span className={step === 1 ? "step active" : "step"}>1</span>
         <span className={step === 2 ? "step active" : "step"}>2</span>
         <span className={step === 3 ? "step active" : "step"}>3</span>
       </div>
-
-      <h2>Recuperar Contraseña</h2>
+    <div className="recuperar-container">
+      <h2 className="restore-title">Recuperar Contraseña</h2>
 
       {step === 1 && (
         <form onSubmit={solicitarCodigo}>
           <div className="form-group">
-            <label htmlFor="email">Correo Electrónico</label>
+            <label className="restore-label" htmlFor="email">Correo Electrónico</label>
             <input
               type="email"
               id="email"
@@ -94,7 +99,7 @@ const Recuperar = () => {
             />
             {errores.email && <span className="error">{errores.email}</span>}
           </div>
-          <button type="submit">Solicitar Código</button>
+          <button className='restore-submit'  type="submit">Solicitar Código</button>
         </form>
       )}
 
@@ -114,7 +119,7 @@ const Recuperar = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="nuevaContraseña">Crear nueva contraseña</label>
+            <label className="restore-label" htmlFor="nuevaContraseña">Crear nueva contraseña</label>
             <input
               type="password"
               id="nuevaContraseña"
@@ -127,7 +132,7 @@ const Recuperar = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmarContraseña">Confirmar contraseña</label>
+            <label className="restore-label" htmlFor="confirmarContraseña">Confirmar contraseña</label>
             <input
               type="password"
               id="confirmarContraseña"
@@ -139,7 +144,7 @@ const Recuperar = () => {
             {errores.confirmarContraseña && <span className="error">{errores.confirmarContraseña}</span>}
           </div>
 
-          <button type="submit">Recuperar</button>
+          <button className='restore-submit'  type="submit">Recuperar</button>
 
           {mostrarMensaje && (
             <p className="resend-message">
@@ -156,11 +161,13 @@ const Recuperar = () => {
         <div>
           <p>{mensajeExito}</p>
           <Link to="/login">
-            <button>Iniciar sesión</button>
+            <button className='restore-submit' >Iniciar sesión</button>
           </Link>
         </div>
       )}
     </div>
+    </div>
+    </main>
   );
 };
 

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Login from "./components/Login/Login";
 import Register from "./components/Login/Register";
 import Recuperar from "./components/Login/Recuperar";
-import Header from "./components/Layout/Header/Header";
 import Sidebar from "./components/Layout/Sidebar/Sidebar";
 import ChatWelcome from "./components/Chat/ChatWelcome";
 import ChatInput from './components/Chat/ChatInput';
