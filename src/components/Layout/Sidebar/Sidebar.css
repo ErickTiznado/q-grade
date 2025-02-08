@@ -124,8 +124,10 @@ body {
   border: none;
   color: var(--color-text);
   cursor: pointer;
-  padding: var(--space-xs);
+  padding: var(--space-md);
   border-radius: var(--border-radius);
+  font-size: var(--font-size-md);
+
 }
 
 .sidebar__toggle:hover{
