@@ -71,9 +71,7 @@
     
   }
   
-  button:hover {
-    background-color: #3CB371;
-  }
+
   
   .error {
     color: red;
@@ -81,10 +79,7 @@
     margin-top: 5px;
   }
   
-  p {
-    color: black;
-    font-size: 12px;
-  }
+
   
   .resend-message {
     margin-top: 10px;

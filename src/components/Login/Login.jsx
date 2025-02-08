@@ -40,7 +40,7 @@ const Login = () => {
         const data = await response.json();
 
         if (response.ok) {
-          navigate("/dashboard"); // Redirigir a la pantalla deseada
+          navigate("/app"); // Redirigir a la pantalla deseada
         } else {
           setMensajeError(data.message);
         }

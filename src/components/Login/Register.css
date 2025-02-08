@@ -90,9 +90,7 @@ button:disabled {
   background-color: #ccc;
 }
 
-button:hover {
-  background-color: #2b7f2f;
-}
+
 
 .error {
   color: red;
