@@ -10,6 +10,7 @@ import ChatInput from './components/Chat/ChatInput';
 import ChatMessage from './components/Chat/ChatMessage';
 import ChatLoading from './components/Chat/ChatLoading';
 import "./App.css";
+import EditorUI from "./components/DevMode/EditorUI";
 
 function App() {
   const [message, setMessage] = useState('');
@@ -95,6 +96,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/recuperar" element={<Recuperar />} />
+        <Route path="/editorui" element={<EditorUI />} />
+        
 
         <Route 
           path="/app" 
