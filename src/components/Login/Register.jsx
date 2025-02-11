@@ -63,15 +63,9 @@ const Register = () => {
       <h2 className='register-title' >Crear Cuenta</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label  className='register-label'  htmlFor="nombres">Nombres</label>
+          <label  className='register-label'  htmlFor="nombres">Nombre Completo</label>
           <input type="text" id="nombres" value={nombres} onChange={(e) => setNombres(e.target.value)} required />
           {errores.nombres && <span className="error">{errores.nombres}</span>}
-        </div>
-
-        <div className="form-group">
-          <label  className='register-label' htmlFor="apellidos">Apellidos</label>
-          <input type="text" id="apellidos" value={apellidos} onChange={(e) => setApellidos(e.target.value)} required />
-          {errores.apellidos && <span className="error">{errores.apellidos}</span>}
         </div>
 
         <div className="form-group">
