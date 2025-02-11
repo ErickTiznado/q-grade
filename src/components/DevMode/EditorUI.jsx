@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Rnd } from "react-rnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHistory, faCopy } from "@fortawesome/free-solid-svg-icons"; 
-import "./EditorUI.css"; 
+import "../DevMode/EditorUI.css"; 
 import ChatInput from "../Chat/ChatInput"; 
 import Sidebar from "../Layout/Sidebar/Sidebar"; // 🔥 Importamos Sidebar sin modificarlo
 import rotateIcon from "/src/assets/Vector.svg"; 
@@ -10,9 +10,11 @@ import arrowRightIcon from "/src/assets/siguiente.svg";
 import starIcon from "/src/assets/star.svg";
 import gearIcon from "/src/assets/imagen.svg";
 
+ 
 const EditorUI = () => {
     const [text, setText] = useState("");
-
+    const [message, setMessage] = useState('');
+    const [showSidebar, setShowSidebar] = useState(true);
     const handleInput = (e) => {
       setText(e.target.value);
       e.target.style.height = "auto"; 
@@ -21,7 +23,11 @@ const EditorUI = () => {
 
     return (
       <div className="app-container"> {/* 🔥 Contenedor principal */}
-        <Sidebar /> {/* 🔥 Sidebar se mantiene sin cambios */}
+         <Sidebar 
+                showSidebar={showSidebar} 
+                setShowSidebar={setShowSidebar} 
+                onResetChat={() => setMessages([])}
+              /> {/* 🔥 Sidebar se mantiene sin cambios */}
 
         <div className="editor-wrapper"> {/* 🔥 Contenedor del editor */}
           <Rnd
