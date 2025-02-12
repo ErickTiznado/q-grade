@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Sidebar.css';
+import Profile from "../../Profile/Profile.jsx";
 import { Logo } from '../../UI/Logo';
 import { Q} from '../../UI/Q'
 import { faChevronLeft, faChevronRight, faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +8,15 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export function Sidebar({showSidebar, setShowSidebar}){
+  const [showProfile, setShowProfile] = useState(false); // Estado para controlar si se muestra el perfil flotante
+
+  const handleProfileClick = () => {
+    setShowProfile(!showProfile); // Cambiar el estado de showProfile al hacer clic
+  };
+
+  const handleCloseProfile = () => {
+    setShowProfile(false); // Cerrar el perfil al hacer clic fuera
+  };
   return(
   <aside className={`sidebar ${showSidebar ? 'sidebar--expanded' : 'sidebar--collapsed' }`}>
     <header className='sidebar_header'>
@@ -56,11 +66,21 @@ export function Sidebar({showSidebar, setShowSidebar}){
       )}
     </div>
     <footer className='sidebar__footer'>
-        <button className='sidebar__button'>
-        <FontAwesomeIcon color='#77ca9c' className={`sidebar__button-icon ${!showSidebar ? 'sidebar__button-collapsed' : ''}`} icon={faUser} />
+        <button className='sidebar__button' onClick={handleProfileClick}>
+          <FontAwesomeIcon color='#77ca9c' className={`sidebar__button-icon ${!showSidebar ? 'sidebar__button-collapsed' : ''}`} icon={faUser} />
           {showSidebar && <span>Perfil</span>}
         </button>
-    </footer>
+      </footer>
+
+      {/* Mostrar el perfil flotante solo si showProfile es true */}
+      {showProfile && (
+        <div className='profile-overlay' onClick={handleCloseProfile}>
+          <div className='profile-modal' onClick={(e) => e.stopPropagation()}>
+            {/* Renderizar el componente Profile.jsx */}
+            <Profile />
+          </div>
+        </div>
+      )}
   </aside>
   );
 }
