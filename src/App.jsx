@@ -10,7 +10,11 @@ import ChatInput from "./components/Chat/ChatInput";
 import ChatMessage from "./components/Chat/ChatMessage";
 import ChatLoading from "./components/Chat/ChatLoading";
 import "./App.css";
+<<<<<<< HEAD
+import EditorUI from "./components/DevMode/EditorUI";
+=======
 import { sendMessage } from "./api/api";
+>>>>>>> main
 
 function App() {
   // Estados para mensaje, archivos, historial, etc.
@@ -105,6 +109,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/recuperar" element={<Recuperar />} />
+<<<<<<< HEAD
+        <Route path="/editorui" element={<EditorUI />} />
+        
+
+=======
+>>>>>>> main
         <Route 
           path="/app" 
           element={
