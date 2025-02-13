@@ -71,8 +71,13 @@
     
   }
   
+  .info-message{
+    color: black
+  }
 
-  
+  .resend-message{
+    color: black
+  }
   .error {
     color: red;
     font-size: 12px;

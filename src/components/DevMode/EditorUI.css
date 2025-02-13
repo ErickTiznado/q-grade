@@ -1,0 +1,173 @@
+.floating-window {
+    position: absolute;
+    background-color: #18354d;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--border-radius);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+  
+ /* Barra de herramientas (movible) */
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Separa los botones */
+    background: var(--color-primary-light);
+    padding: var(--space-xs);
+    height: 2rem;
+    cursor: grab; /* Para indicar que se puede mover */
+    background-color: #18354d;
+    
+  }
+  
+  /* Contenedor de los botones de la derecha */
+  .toolbar .right-buttons {
+    margin-left: auto; /* Mueve los botones hacia la derecha */
+    display: flex;
+    gap: var(--space-xs);
+    
+  }
+  /* Estilos para los botones de la barra de herramientas */
+.toolbar button {
+    background: none; /* Sin fondo */
+    border: none; /* Sin bordes */
+    color: #ffffff; /* Color blanco */
+    font-size: 1rem; /* Tamaño de los iconos */
+    cursor: pointer;
+    padding: var(--space-xs);
+    transition: color 0.2s ease-in-out;
+  }
+  
+  /* Efecto hover para cambiar de color cuando el mouse pasa encima */
+  .toolbar button:hover {
+    color: var(--color-accent); /* Cambia a un color de acento */
+  }
+  
+  
+  /* Editor de texto */
+  .textarea {
+    flex: 1;
+    width: 100%;
+    min-height: 100px;
+    max-height: 50px; /* Evita que crezca demasiado */
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: var(--space-xs);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    resize: none;
+    height: calc(100% - 2rem); /* Ajusta la altura según la barra de herramientas */
+  }
+  
+  /* Scrollbar más delgado */
+  .textarea::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .textarea::-webkit-scrollbar-thumb {
+    background: var(--color-primary-light);
+    border-radius: 4px;
+  }
+  
+  .textarea::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+  }
+  
+  .chat-input-wrapper {
+    position: fixed;
+    bottom: 20px;
+    left: 40%;
+    transform: translateX(-50%);
+    width: 50%;
+    max-width: 740px;
+
+    padding: 10px;
+    border-radius: 10px;
+    
+  }
+  
+  .image-button1 {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .image-button1 img {
+    width: 24px; /* Ajusta el tamaño según necesites */
+    height: 24px;
+  }
+  
+  .image-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-top: 9px;
+  
+  }
+  
+  .image-button img {
+    width: 64px; /* Ajusta el tamaño de la imagen */
+    height: 24px;
+    x: 960px;;
+  }
+
+  .image-button2 {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image-button2 img {
+    width: 20px;
+    height: 40px;
+    object-fit: contain;
+  }
+  
+  .image-button3 {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image-button3 img {
+    width: 20px;
+    height: 40px;
+    object-fit: contain;
+  }
+  
+  .editor-layout {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .editor-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 250px; /* 🔥 Ajusta este valor al ancho de tu Sidebar */
+  }
+  .app-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden; /* 🔥 Evita problemas con scroll */
+  }
+  
+  .editor-wrapper {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
