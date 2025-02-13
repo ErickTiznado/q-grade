@@ -1,0 +1,34 @@
+.profile-container {
+    background-color: #0f172a; /* Color de fondo oscuro */
+    padding: 10px;
+    border-radius: 10px;
+    width: 250px; /* Ajuste del ancho */
+  }
+  
+  .profile-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: #f8fafc; /* Color del texto */
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+    border-radius: 4px;
+  }
+  
+  .profile-button:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Efecto hover */
+  }
+  
+  .icon {
+    font-size: 16px;
+  }
+  
+  .logout {
+    color: #f87171; /* Color rojo para cerrar sesión */
+  }
+  
