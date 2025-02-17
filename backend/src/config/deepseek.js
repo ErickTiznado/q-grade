@@ -7,7 +7,7 @@ module.exports = {
 
     REASONER_MODEL: 'deepseek-reasoner',
 
-    TEMPERATURE: 0.3,
+    TEMPERATURE: 1.3,
 
     MAX_TOKENS: 8000
 };

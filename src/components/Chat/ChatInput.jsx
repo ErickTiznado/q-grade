@@ -1,15 +1,6 @@
 // ChatInput.jsx
 import React, { useRef, useState } from 'react';
-import { 
-  Send, 
-  Paperclip, 
-  CodeIcon, 
-  Brain, 
-  Palette,
-  X,
-  ChevronUp,
-  ChevronDown
-} from 'lucide-react';
+import { Send, Paperclip, CodeIcon, Brain, Palette, X, ChevronUp, ChevronDown } from 'lucide-react';
 import './ChatInput.css';
 
 export function ChatInput({
@@ -20,15 +11,16 @@ export function ChatInput({
   isLoading,
   onModelChange,
   isReasoningModel,
-  files,      // estado levantado desde App.jsx
-  setFiles    // setter levantado desde App.jsx
+  files,
+  setFiles,
+  toggleEditor = () => {},
+  onFileLoad = () => {} // Nueva prop para notificar el contenido leído del archivo
 }) {
   const fileInputRef = useRef(null);
-  
-  // Para mostrar/ocultar el panel de archivos, mantenemos este estado local
   const [filesPanelVisible, setFilesPanelVisible] = useState(true);
-  
-  const allowedFileTypes = [
+
+  // MIME types permitidos
+  const allowedMimeTypes = [
     'application/pdf',
     'application/msword',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
@@ -42,16 +34,45 @@ export function ChatInput({
     'text/css'
   ];
 
-  // Manejador para seleccionar archivos
+  // Extensiones permitidas para archivos de código
+  const allowedExtensions = ['.css', '.html', '.js', '.jsx', '.ts', '.tsx', '.py', '.c', '.cs'];
+
+  // Función para leer el contenido del archivo usando FileReader (para archivos de código)
+  const readFileContent = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => resolve(event.target.result);
+      reader.onerror = (error) => reject(error);
+      reader.readAsText(file);
+    });
+  };
+
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files)
-      .filter(file => allowedFileTypes.includes(file.type))
+      .filter(file => {
+         const extension = file.name.substring(file.name.lastIndexOf(".")).toLowerCase();
+         return allowedMimeTypes.includes(file.type) || allowedExtensions.includes(extension);
+      })
       .map(file => ({ file, active: true }));
+      
     console.log("handleFileChange - Archivos seleccionados:", selectedFiles);
     if (selectedFiles.length > 0) {
       setFiles(selectedFiles);
+      // Si el archivo es de código (por extensión), leemos su contenido y lo notificamos
+      selectedFiles.forEach(async (item) => {
+        const extension = item.file.name.substring(item.file.name.lastIndexOf(".")).toLowerCase();
+        if (allowedExtensions.includes(extension)) {
+          try {
+            const content = await readFileContent(item.file);
+            console.log(`Contenido leído de ${item.file.name}:`, content);
+            onFileLoad(content); // Notificamos al componente padre con el contenido del archivo
+          } catch (error) {
+            console.error(`Error leyendo ${item.file.name}:`, error);
+          }
+        }
+      });
     } else {
-      alert('Solo se permiten archivos PDF, Word, Excel, TXT y archivos de código.');
+      alert('Solo se permiten archivos PDF, Word, Excel, TXT y archivos de código (CSS, HTML, JS, JSX, TS, TSX, PY, C, C#).');
     }
   };
 
@@ -124,10 +145,12 @@ export function ChatInput({
 
         <div className="input-wrapper">
           <div className="input-actions">
+            {/* Botón del CodeIcon que activa el EditorUI */}
             <button 
               className="input-action" 
-              aria-label="Insertar código"
+              aria-label="Mostrar/Ocultar editor de código"
               type="button"
+              onClick={toggleEditor}
             >
               <CodeIcon size={20} />
             </button>
@@ -143,7 +166,7 @@ export function ChatInput({
 
             <button 
               className={`input-action ${isReasoningModel ? 'active-model' : ''}`}
-              aria-label="Modo análisis"
+              aria-label="Alternar modo análisis"
               type="button"
               onClick={handleReasonerToggle}
             >
@@ -184,7 +207,7 @@ export function ChatInput({
 
           <button
             className="input-send"
-            onClick={onSend} // Llama a onSend sin parámetros; el estado de archivos ya se levantó
+            onClick={onSend}
             disabled={isLoading || (!message?.trim() && files.length === 0)}
             aria-label={isLoading ? "Enviando mensaje" : "Enviar"}
           >

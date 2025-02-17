@@ -1,0 +1,38 @@
+/* ContextMenu.css */
+.context-menu {
+  position: fixed;
+  background: rgba(30, 42, 51, 0.95); /* Fondo oscuro semi-transparente */
+  border: 1px solid rgba(42, 59, 76, 0.7);
+  border-radius: 6px;
+  padding: 0.25rem 0;
+  z-index: 1100;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  min-width: 160px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem; /* Tamaño de letra reducido */
+  color: var(--font-color);
+  backdrop-filter: blur(3px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.context-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.context-menu li {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.context-menu li:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.context-menu li:hover {
+  background: var(--accent-color);
+  color: #000;
+  transform: scale(1.01);
+}

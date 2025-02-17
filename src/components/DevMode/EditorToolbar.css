@@ -1,0 +1,25 @@
+/* EditorToolbar.css */
+
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background-color: #1e2a33; /* Fondo oscuro para integrarse con el tema del editor */
+    border-bottom: 1px solid #2a3b4c;
+  }
+  
+  .toolbar-button {
+    background: none;
+    border: none;
+    color: #e0e6ed;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .toolbar-button:hover {
+    color: #4fc3f7;
+    transform: scale(1.05);
+  }
+  

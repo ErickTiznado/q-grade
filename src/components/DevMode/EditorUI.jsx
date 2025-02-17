@@ -1,84 +1,103 @@
+// EditorUI.jsx
 import React, { useState } from "react";
 import { Rnd } from "react-rnd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHistory, faCopy } from "@fortawesome/free-solid-svg-icons"; 
-import "../DevMode/EditorUI.css"; 
-import ChatInput from "../Chat/ChatInput"; 
-import Sidebar from "../Layout/Sidebar/Sidebar"; // 🔥 Importamos Sidebar sin modificarlo
-import rotateIcon from "/src/assets/Vector.svg"; 
-import arrowRightIcon from "/src/assets/siguiente.svg"; 
-import starIcon from "/src/assets/star.svg";
-import gearIcon from "/src/assets/imagen.svg";
+import EditorToolbar from "./EditorToolbar";
+import MonacoEditorUI from "./MonacoEditorUI";
+import ContextMenu from "./ContextMenu";
+import "./EditorUI.css";
 
- 
-const EditorUI = () => {
-    const [text, setText] = useState("");
-    const [message, setMessage] = useState('');
-    const [showSidebar, setShowSidebar] = useState(true);
-    const handleInput = (e) => {
-      setText(e.target.value);
-      e.target.style.height = "auto"; 
-      e.target.style.height = e.target.scrollHeight + "px"; 
-    };
+const EditorUI = ({ code, setCode, language, onLanguageChange, annotationsVisible }) => {
+  const [contextMenuData, setContextMenuData] = useState(null);
 
-    return (
-      <div className="app-container"> {/* 🔥 Contenedor principal */}
-         <Sidebar 
-                showSidebar={showSidebar} 
-                setShowSidebar={setShowSidebar} 
-                onResetChat={() => setMessages([])}
-              /> {/* 🔥 Sidebar se mantiene sin cambios */}
+  // Callback que se dispara cuando se termina una selección en el editor
+  const handleSelection = (coords, selection, selectedText) => {
+    // Guarda la posición y datos de la selección
+    setContextMenuData({
+      x: coords.x,
+      y: coords.y,
+      selection,
+      text: selectedText,
+    });
+  };
 
-        <div className="editor-wrapper"> {/* 🔥 Contenedor del editor */}
-          <Rnd
-            default={{
-              x: 1070,
-              y: 2,
-              width: 550,
-              height: 820,
-            }}
-            minWidth={300}
-            minHeight={200}
-            bounds="window"
-            dragHandleClassName="toolbar"
-            className="floating-window"
-          >
-            <div className="editor-container">
-              <div className="toolbar">
-                <button className="image-button1">
-                  <img src={rotateIcon} alt="Rotar" />
-                </button>
-                <button className="image-button">
-                  <img src={arrowRightIcon} alt="Flecha derecha" />
-                </button>
+  // Función para encapsular la selección en etiquetas especiales para mejorarla
+  const improveSelection = () => {
+    if (contextMenuData && contextMenuData.text) {
+      const improvedText = `<CODIGO_SELECCIONADO>\n${contextMenuData.text}\n</CODIGO_SELECCIONADO>`;
+      // Nota: Este reemplazo es simple; en una implementación robusta se usaría la API de Monaco para editar el rango exacto.
+      const newCode = code.replace(contextMenuData.text, improvedText);
+      setCode(newCode);
+    }
+    setContextMenuData(null);
+  };
 
-                <div className="right-buttons">
-                  <button className="image-button2">
-                    <img src={starIcon} alt="Star" />
-                  </button>
-                  <button><FontAwesomeIcon icon={faHistory} /></button>
-                  <button><FontAwesomeIcon icon={faCopy} /></button>
-                  <button className="image-button3">
-                    <img src={gearIcon} alt="Configuración" />
-                  </button>
-                </div>
-              </div>
+  // Función para encapsular la selección para explicar el código
+  const explainSelection = () => {
+    if (contextMenuData && contextMenuData.text) {
+      const explainedText = `<CODIGO_EXPLICADO>\n${contextMenuData.text}\n</CODIGO_EXPLICADO>`;
+      const newCode = code.replace(contextMenuData.text, explainedText);
+      setCode(newCode);
+    }
+    setContextMenuData(null);
+  };
 
-              <textarea
-                className="textarea"
-                placeholder="Empieza a escribir o pega tu contenido aquí..."
-                value={text}
-                onChange={handleInput} 
-              />
-            </div>
-          </Rnd>
-
-          <div className="chat-input-wrapper">
-            <ChatInput text={text} setText={setText} />
+  return (
+    <div className="editor-ui-container">
+      <Rnd
+        default={{
+          x: 0,
+          y: 0,
+          width: "100%",
+          height: "100%",
+        }}
+        minWidth={300}
+        minHeight={200}
+        bounds="parent"
+        dragHandleClassName="editor-navbar"
+        className="floating-window"
+      >
+        <div className="editor-container">
+          <div className="editor-navbar">
+            <EditorToolbar 
+              onAnalyze={() => console.log("Analizando el código:", code)}
+              onApplySuggestions={() => console.log("Aplicando sugerencias...")}
+              onToggleAnnotations={() => console.log("Alternando anotaciones...")}
+              onSave={() => console.log("Guardando el código...")}
+              onDiff={() => console.log("Comparando versiones...")}
+              annotationsVisible={annotationsVisible}
+              language={language}
+              onLanguageChange={onLanguageChange}
+            />
+          </div>
+          <div className="editor-content">
+            <MonacoEditorUI 
+              value={code}
+              onCodeChange={setCode}
+              language={language}
+              onSelection={handleSelection}
+              decorations={[]}
+            />
           </div>
         </div>
-      </div>
-    );
+      </Rnd>
+      {contextMenuData && (
+        <ContextMenu
+          x={contextMenuData.x}
+          y={contextMenuData.y}
+          onOptionSelect={(option) => {
+            if (option === "improve") {
+              improveSelection();
+            } else if (option === "explain") {
+              explainSelection();
+            } else {
+              setContextMenuData(null);
+            }
+          }}
+          onClose={() => setContextMenuData(null)}
+        />
+      )}
+    </div>
+  );
 };
 
 export default EditorUI;

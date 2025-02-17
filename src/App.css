@@ -1,7 +1,8 @@
+/* ========== Variables Globales ========== */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Colores actualizados */
+  /* Paleta de colores */
   --color-primary: #1b5083;
   --color-primary-light: #2d6fa1;
   --color-primary-dark: #152534;
@@ -12,28 +13,27 @@
   --code-text: #d4d4d4;
   --inline-code-bg: rgba(110, 118, 129, 0.4);
 
-  /* Espaciado consistente */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 0.75rem;
-  --space-lg: 1rem;
-  --space-xl: 1.5rem;
-
-  /* Tipografía actualizada: usamos Montserrat */
-  --font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  /* Variables para EditorUI y ChatInput */
+  --bg-editor: #121b22;            /* Fondo del contenedor del editor */
+  --bg-window: #1e2a33;            /* Fondo de la ventana flotante (editor) */
+  --border-color: #2a3b4c;         /* Borde sutil */
+  --border-radius: 0.5rem;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --toolbar-height: 3rem;          /* Altura fija para la navbar del editor */
+  --padding: 0.5rem;
+  --font-color: #e0e6ed;           /* Color de texto claro */
   --font-size-sm: 0.875rem;
   --font-size-base: 0.95rem;
-  --font-size-lg: 1.1rem;
+  --accent-color: #4fc3f7;         /* Color de acento para botones y hover */
+  --scrollbar-thumb: #4db8ff;
 
-  /* Layout */
+  /* Layout principal */
   --sidebar-width: 16rem;
   --sidebar-width-collapsed: 5rem;
-  --border-radius: 0.5rem;
   --transition-speed: 250ms;
-  --z-index-sidebar: 50;
 }
 
-/* Reset mejorado */
+/* ========== Reset y Estilos Base ========== */
 *,
 *::before,
 *::after {
@@ -43,23 +43,21 @@
   scroll-behavior: smooth;
 }
 
-html {
-  font-size: 16px;
+html, body {
   height: 100%;
+  font-family: 'Montserrat', sans-serif;
 }
 
 body {
-  font-family: var(--font-family);
   background-color: var(--color-primary-dark);
   color: var(--color-text);
   line-height: 1.6;
-  height: 100vh;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Layout principal */
+/* ========== Layout General ========== */
 .app {
   display: flex;
   height: 100vh;
@@ -71,142 +69,251 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 0;
   position: relative;
+  min-height: 0;
 }
 
-/* Contenedor del chat */
-.chat-container {
+/* ========== Pantalla Dividida ========== */
+.split-screen {
+  display: flex;
+  height: 100%;
+  transition: all 0.5s ease-in-out;
+}
+
+.chat-section {
   flex: 1;
+  overflow: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.1); /* separación opcional */
+  transition: all 0.5s ease-in-out;
+}
+
+.chat-section.full-width {
+  flex: 1 1 100%;
+}
+
+.editor-section {
+  flex: 1;
+  overflow: auto;
+  animation: slideIn 0.5s ease-out;
+}
+
+/* ========== EditorUI ========== */
+.editor-ui-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-editor);
+  padding: var(--padding);
+  box-sizing: border-box;
+}
+
+.floating-window {
+  width: 100% !important;
+  height: 100% !important;
+  background-color: var(--bg-window);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.editor-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 80px);
+  height: 100%;
+}
+
+/* Navbar del editor: toolbar fija en la parte superior */
+.editor-navbar {
   position: relative;
+  z-index: 10;
+  width: 100%;
+  height: var(--toolbar-height);
+  background-color: var(--bg-window);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  box-sizing: border-box;
 }
 
-/* Área de mensajes con scroll */
-.chat-messages {
-  flex: 1 1 auto;
+/* ========== EditorToolbar (Dentro de EditorUI) ========== */
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--padding);
+}
+
+.toolbar-button {
+  background: none;
+  border: none;
+  color: var(--font-color);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.toolbar-button:hover {
+  color: var(--accent-color);
+  transform: scale(1.05);
+}
+
+.right-buttons {
+  display: flex;
+  gap: var(--padding);
+  margin-left: auto;
+}
+
+/* Contenedor del contenido del editor (Monaco) */
+.editor-content {
+  flex: 1;
+  height: calc(100% - var(--toolbar-height));
+  overflow: hidden;
+}
+
+/* ========== MonacoEditorUI (si se usa textarea para fallback) ========== */
+.textarea {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: var(--padding);
+  color: var(--font-color);
+  font-size: var(--font-size-base);
+  resize: none;
   overflow-y: auto;
-  padding: var(--space-md) var(--space-lg);
-  scroll-behavior: smooth;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-  transform: translateZ(0);
 }
 
-/* Optimización de renderizado */
-.chat-messages > * {
-  contain: content;
-  will-change: transform;
-}
-
-/* Scrollbar personalizada */
-.chat-messages::-webkit-scrollbar {
+.textarea::-webkit-scrollbar {
   width: 6px;
 }
 
-.chat-messages::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 3px;
+.textarea::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
 }
 
-.chat-messages::-webkit-scrollbar-thumb {
-  background: var(--color-primary-light);
-  border-radius: 3px;
+.textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
 }
 
-.chat-messages::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent);
-}
-
-/* Ajustes responsive */
-@media (max-width: 768px) {
-  .chat-container {
-    height: calc(100vh - 70px);
-  }
-  
-  .chat-messages {
-    padding: var(--space-sm) var(--space-md);
-  }
-  
-  :root {
-    --space-md: 0.5rem;
-    --space-lg: 0.75rem;
-    --font-size-base: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .chat-container {
-    height: calc(100vh - 60px);
-  }
-  
-  .chat-messages {
-    padding: var(--space-xs) var(--space-sm);
-  }
-  
-  :root {
-    --space-sm: 0.375rem;
-    --space-md: 0.5rem;
-  }
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Componente ChatInput base */
-.chat-input-container {
-  position: relative;
+/* ========== ChatInput ========== */
+.input-area {
+  width: 100%;
   padding: var(--space-md);
-  background: rgba(21, 37, 52, 0.9);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(8px);
-}
-
-/* Mejoras de accesibilidad */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  box-sizing: border-box;
+  min-height: 3rem;
+  max-height: 6rem;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
 }
 
-[data-high-contrast="true"] {
-  --color-primary: #0a2a4a;
-  --color-accent: #5dff9d;
-  --color-text: #ffffff;
+.input-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  /* Agregamos un margen superior para bajar el input */
+  margin-top: 1rem;
 }
 
+.input-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
 
-.open-doc-modal {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  background: var(--color-accent);
+.input-field {
+  flex: 1;
+  width: 100%;
+  padding: var(--space-sm);
   border: none;
-  color: var(--color-primary-dark);
-  font-size: 1.2rem;
-  padding: 0.5rem;
-  border-radius: 50%;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  box-sizing: border-box;
+  min-height: 2.5rem;
+  max-height: 4rem;
+  overflow-y: auto;
+}
+
+.input-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Panel de archivos adjuntos */
+.files-panel {
+  background: rgba(0, 0, 0, 0.2);
+  padding: var(--space-sm);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--space-md);
+}
+
+.files-panel-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: transform 0.2s ease, background 0.2s ease;
-  z-index: 1100;
+  color: var(--color-text);
+  margin-bottom: var(--space-sm);
 }
 
-.open-doc-modal:hover {
-  transform: scale(1.1);
-  background: rgba(119, 202, 156, 0.8);
+.file-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xs);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius);
+}
+
+.file-name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.file-actions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+/* ========== Animaciones ========== */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;             /* Ocupa el 100% de la altura del contenedor padre */
+  padding: 1rem;            /* Espacio interno para evitar que el contenido toque los bordes */
+  box-sizing: border-box;
+  overflow: hidden;         /* Para que los elementos internos manejen su propio scroll */
+}
 
-
+.chat-messages {
+  flex: 1;                  /* Ocupa el espacio que quede disponible */
+  overflow-y: auto;         /* Permite scroll vertical si hay muchos mensajes */
+  padding: 1rem;
+  box-sizing: border-box;
+}
