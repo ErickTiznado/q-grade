@@ -159,9 +159,11 @@ body {
 }
 
 .sidebar__button-icon{
+ 
   color: var(--color-accent);
 }
 .sidebar__button-collapsed{
+  margin-left: 2px;
   font-size: var(--font-size-xl);
 }
 
@@ -235,4 +237,45 @@ font-weight: 400;
     bottom: 0;
     z-index: var(--z-index-sidebar);
   }
+}
+
+.sidebar__search {
+display: flex;
+align-items: center;
+margin: 5px;
+border-radius: var(--border-radius);
+background-color: var(--color-primary);
+cursor: pointer;
+}
+
+.sidebar__search:hover {
+  background-color: #2D6FA1;
+}
+
+/* 🌟 Nuevo estilo para el enfoque */
+.sidebar__search--focused {
+  background-color: #2D6FA1;
+  border: 2px solid var(--color-accent);
+}
+
+.sidebar__search-icon {
+  color: var(--color-text);
+  margin-right: var(--space-sm);
+  font-size: 1.2rem;
+}
+
+.sidebar__search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  outline: none;
+}
+
+.sidebar__search-input::placeholder {
+  color: var(--color-text-muted);
+
+  font-family: var(--font-family);
+  
 }
