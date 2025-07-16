@@ -1,0 +1,1000 @@
+/* DocumentPanel.css - Sistema de documentos estilo ChatGPT */
+
+/* ============================= */
+/*         Variables             */
+/* ============================= */
+:root {
+  /* Dimensiones del panel */
+  --panel-width: 500px;
+  
+  /* Colores base - usando la misma paleta que ChatInput */
+  --panel-bg: rgba(27, 80, 131, 0.95); /* Usando color-primary con alta opacidad */
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --item-bg: rgba(255, 255, 255, 0.05);
+  --item-hover: rgba(255, 255, 255, 0.08);
+  --item-active: rgba(119, 202, 156, 0.15); /* Usando color-accent */
+  --item-selected: rgba(119, 202, 156, 0.12);
+  
+  /* Colores de texto - mismo esquema que ChatInput */
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8); /* Mismo que color-text-muted */
+  --text-muted: rgba(255, 255, 255, 0.5);
+  
+  /* Colores principales - heredando de ChatInput */
+  --accent-color: #77ca9c; /* color-accent */
+  --primary-color: #1b5083; /* color-primary */
+  --primary-dark: #152534; /* color-primary-dark */
+  --danger-color: #ef4444; /* color-error */
+  --warning-color: #fbbf24; /* color-warning */
+  --info-color: #3b82f6; /* color-info */
+  --success-color: #4ade80; /* color-success */
+  
+  /* Espaciado - usando las mismas variables que ChatInput */
+  --space-xs: 0.25rem;  /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-md: 0.75rem;  /* 12px */
+  --space-lg: 1rem;     /* 16px */
+  --space-xl: 1.5rem;   /* 24px */
+  --space-xxl: 2rem;    /* 32px */
+  
+  /* Bordos y transiciones - consistentes con ChatInput */
+  --border-radius: 0.75rem;
+  --transition-fast: 150ms;
+  --transition-normal: 250ms;
+  --transition-slow: 350ms;
+  
+  /* Z-index hierarchy para DocumentPanel */
+  --z-panel-overlay: 99999;
+  --z-panel-content: 100000;
+  --z-panel-dropdown: 100001;
+}
+
+/* ============================= */
+/*         Overlay               */
+/* ============================= */
+.document-panel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: var(--z-panel-overlay); /* Usando variable */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8vh; /* Mostrar más arriba */
+  animation: overlayFadeIn 0.2s ease-out;
+  /* Forzar nuevo stacking context */
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: opacity;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(4px);
+  }
+}
+
+/* ============================= */
+/*         Panel Principal       */
+/* ============================= */
+.document-panel {
+  width: var(--panel-width);
+  max-width: 90vw;
+  max-height: 85vh;
+  background: var(--panel-bg);
+  border: 2px solid var(--panel-border); /* Aumentado a 2px para consistencia */
+  border-radius: var(--border-radius); /* Usando variable consistente */
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.3),
+    0 8px 32px rgba(27, 80, 131, 0.15), /* Agregando sombra con color primario */
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: panelSlideIn var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: var(--z-panel-content);
+  /* Forzar nuevo stacking context */
+  isolation: isolate;
+  transform: translateZ(0);
+  backdrop-filter: blur(20px); /* Agregando blur para consistencia */
+}
+
+@keyframes panelSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.document-panel.drag-over {
+  border-color: var(--accent-color);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.3),
+    0 0 0 2px var(--accent-color),
+    0 0 20px rgba(119, 202, 156, 0.3);
+}
+
+/* ============================= */
+/*         Header                */
+/* ============================= */
+.document-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xl) var(--space-xl) var(--space-lg); /* Usando variables de espaciado */
+  border-bottom: 1px solid var(--panel-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md); /* Usando variable */
+}
+
+.header-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--accent-color);
+}
+
+.header-title h2 {
+  margin: 0;
+  font-size: 1.125rem; /* 18px en rem */
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.01em; /* Mejora la legibilidad */
+}
+
+.document-count {
+  background: var(--accent-color);
+  color: var(--primary-dark); /* Usando variable */
+  padding: var(--space-xs) var(--space-sm); /* Usando variables */
+  border-radius: var(--space-md); /* 12px usando variable */
+  font-size: 0.75rem; /* 12px en rem */
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(119, 202, 156, 0.3); /* Agregando sombra sutil */
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-sm); /* Usando variable */
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.05); /* Fondo más sutil */
+  border: 1px solid var(--panel-border);
+  border-radius: var(--space-sm); /* Usando variable (8px) */
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1); /* Misma transición que ChatInput */
+  backdrop-filter: blur(10px); /* Consistente con ChatInput */
+}
+
+.icon-btn:hover {
+  background: var(--item-hover);
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  transform: translateY(-1px) scale(1.02); /* Mismo efecto que ChatInput */
+  box-shadow: 0 4px 16px rgba(119, 202, 156, 0.25); /* Sombra hover consistente */
+}
+
+.icon-btn:active {
+  transform: translateY(0) scale(0.98); /* Efecto de presionado */
+  transition-duration: var(--transition-fast);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* ============================= */
+/*         Stats Bar             */
+/* ============================= */
+.document-stats {
+  display: flex;
+  justify-content: space-between; /* Distribuir uniformemente */
+  align-items: center; /* Centrar verticalmente */
+  gap: var(--space-sm); /* Mantener gap mínimo entre elementos */
+  padding: var(--space-md) 10px; /* 10px de margen horizontal, 12px vertical */
+  margin: 0 var(--space-sm); /* Margen lateral adicional */
+  background: rgba(255, 255, 255, 0.02); /* Fondo sutil */
+  border-radius: var(--space-sm); /* Bordes redondeados */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Borde sutil */
+  font-size: 0.6875rem; /* 11px en rem */
+  color: var(--text-muted);
+  flex-wrap: wrap; /* Permitir envolvimiento en pantallas pequeñas */
+}
+
+.document-stats span {
+  padding: var(--space-xs) var(--space-sm); /* Padding mejorado */
+  background: rgba(27, 80, 131, 0.08); /* Usando color primario directo */
+  border-radius: var(--space-xs); /* Usando variable (4px) */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Borde sutil */
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrar contenido de cada stat */
+  gap: var(--space-xs); /* Usando variable */
+  text-align: center; /* Centrar texto */
+  flex: 1; /* Hacer que cada stat ocupe el mismo espacio */
+  min-width: 0; /* Permitir que se contraigan si es necesario */
+}
+
+.stat-label {
+  font-size: 0.6875rem; /* 11px en rem */
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em; /* Reducido para mejor legibilidad */
+  font-weight: 500;
+  white-space: nowrap; /* Evitar que se rompa el texto */
+}
+
+.stat-value {
+  font-size: 0.875rem; /* 14px en rem */
+  color: var(--text-primary);
+  font-weight: 600;
+  white-space: nowrap; /* Evitar que se rompa el texto */
+}
+
+/* ============================= */
+/*         Controls              */
+/* ============================= */
+.document-controls {
+  display: flex;
+  gap: var(--space-md); /* Usando variable */
+  padding: var(--space-lg) var(--space-xl); /* Usando variables */
+  border-bottom: 1px solid var(--panel-border);
+  background: rgba(255, 255, 255, 0.01); /* Fondo sutil */
+}
+
+.search-box {
+  flex: 1;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: var(--space-md); /* Usando variable */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+}
+
+.search-input {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md) var(--space-sm) calc(var(--space-md) + 20px); /* Espaciado con icono */
+  background: var(--item-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--space-sm); /* Usando variable */
+  color: var(--text-primary);
+  font-size: 0.875rem; /* 14px en rem */
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1); /* Misma transición que ChatInput */
+  backdrop-filter: blur(10px); /* Consistente con ChatInput */
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background: var(--item-hover);
+  box-shadow: 0 0 0 3px rgba(119, 202, 156, 0.15); /* Consistente con ChatInput */
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.8; /* Consistente con ChatInput */
+}
+
+.filter-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm); /* Usando variable */
+}
+
+.filter-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+}
+
+.filter-select {
+  padding: var(--space-sm) var(--space-md); /* Usando variables */
+  background: var(--item-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--space-sm); /* Usando variable */
+  color: var(--text-primary);
+  font-size: 0.875rem; /* 14px en rem */
+  cursor: pointer;
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1); /* Consistente con ChatInput */
+  backdrop-filter: blur(10px); /* Consistente */
+  min-width: 120px; /* Ancho mínimo para consistencia */
+}
+
+.filter-select:hover {
+  background: var(--item-hover);
+  border-color: rgba(119, 202, 156, 0.4); /* Hover consistente */
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(119, 202, 156, 0.15); /* Consistente con ChatInput */
+}
+
+/* ============================= */
+/*         Bulk Actions          */
+/* ============================= */
+.bulk-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-xl); /* Usando variables */
+  background: var(--info-color);
+  color: white;
+  animation: bulkSlideIn var(--transition-normal) ease-out; /* Usando variable */
+}
+
+@keyframes bulkSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.selected-count {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.bulk-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.bulk-btn {
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.bulk-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.bulk-btn.danger {
+  background: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.bulk-btn.danger:hover {
+  background: #dc2626;
+}
+
+/* ============================= */
+/*         Document List         */
+/* ============================= */
+.document-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-lg) 0; /* Usando variable */
+}
+
+.document-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.document-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.document-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--space-xs); /* Usando variable */
+}
+
+.document-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ============================= */
+/*         Document Item         */
+/* ============================= */
+.document-item {
+  margin: 0 var(--space-lg) var(--space-sm); /* Usando variables */
+  background: var(--item-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--space-sm); /* Usando variable */
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1); /* Consistente con ChatInput */
+  overflow: hidden;
+}
+
+.document-item:hover {
+  background: var(--item-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px); /* Efecto hover sutil */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Sombra hover */
+}
+
+.document-item.active {
+  background: var(--item-active);
+  border-color: var(--accent-color);
+  box-shadow: 0 2px 8px rgba(119, 202, 156, 0.2); /* Sombra para estado activo */
+}
+
+.document-item.selected {
+  background: var(--item-selected);
+  border-color: var(--info-color);
+}
+
+.document-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg); /* Usando variable */
+}
+
+.document-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md); /* Usando variable */
+  flex: 1;
+  min-width: 0;
+}
+
+.document-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent-color);
+  cursor: pointer;
+}
+
+.expand-btn {
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--space-xs); /* Usando variable */
+  transition: all var(--transition-normal) ease; /* Agregando transición */
+}
+
+.expand-btn:hover {
+  background: var(--item-hover);
+  color: var(--accent-color);
+}
+
+.file-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.file-icon.document {
+  color: var(--info-color);
+}
+
+.file-icon.code {
+  color: var(--warning-color);
+}
+
+.file-icon.image {
+  color: var(--success-color);
+}
+
+.document-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.document-name {
+  display: block;
+  font-size: 0.875rem; /* 14px en rem */
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: var(--space-xs); /* Usando variable */
+  letter-spacing: 0.01em; /* Mejora la legibilidad */
+}
+
+.document-meta {
+  display: flex;
+  gap: var(--space-md); /* Usando variable */
+  font-size: 0.75rem; /* 12px en rem */
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-xs); /* Usando variable */
+}
+
+.document-meta span {
+  white-space: nowrap;
+  padding: var(--space-xs) var(--space-sm); /* Usando variables */
+  background: rgba(27, 80, 131, 0.1); /* Usando color primario directo */
+  border-radius: var(--space-xs); /* Usando variable */
+  font-size: 0.6875rem; /* 11px en rem */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Borde sutil */
+}
+
+.document-type {
+  background: rgba(74, 222, 128, 0.15) !important;
+  color: var(--success-color) !important;
+  font-weight: 500;
+}
+
+.document-status {
+  font-weight: 500;
+}
+
+.document-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm); /* Usando variable */
+  flex-shrink: 0;
+}
+
+.toggle-btn {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.03); /* Fondo más sutil */
+  border: 1px solid var(--panel-border);
+  border-radius: var(--space-sm); /* Usando variable */
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1); /* Consistente con ChatInput */
+  backdrop-filter: blur(10px); /* Consistente */
+}
+
+.toggle-btn:hover {
+  background: var(--item-hover);
+  color: var(--text-primary);
+  transform: translateY(-1px) scale(1.05); /* Efecto hover consistente */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra hover */
+}
+
+.toggle-btn:active {
+  transform: translateY(0) scale(0.98); /* Efecto de presionado */
+  transition-duration: var(--transition-fast);
+}
+
+.toggle-btn.active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--primary-dark); /* Usando variable */
+  box-shadow: 0 2px 8px rgba(119, 202, 156, 0.3); /* Sombra para estado activo */
+}
+
+/* ============================= */
+/*         Dropdown Menu         */
+/* ============================= */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-trigger {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.03); /* Fondo más sutil */
+  border: 1px solid var(--panel-border);
+  border-radius: var(--space-sm); /* Usando variable */
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1); /* Consistente */
+  backdrop-filter: blur(10px);
+}
+
+.dropdown-trigger:hover {
+  background: var(--item-hover);
+  color: var(--accent-color);
+  transform: translateY(-1px) scale(1.05); /* Efecto hover consistente */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + var(--space-xs)); /* Usando variable */
+  min-width: 180px;
+  background: var(--panel-bg);
+  border: 2px solid var(--panel-border); /* Borde más grueso para consistencia */
+  border-radius: var(--space-sm); /* Usando variable */
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.3),
+    0 8px 32px rgba(27, 80, 131, 0.15), /* Sombra con color primario */
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  padding: var(--space-sm) 0; /* Usando variable */
+  z-index: var(--z-panel-dropdown); /* Usando variable de z-index */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1); /* Transición consistente */
+  backdrop-filter: blur(20px); /* Efecto blur consistente */
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  width: 100%;
+  padding: var(--space-sm) var(--space-lg); /* Usando variables */
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.875rem; /* 14px en rem */
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md); /* Usando variable */
+  transition: all var(--transition-normal) ease; /* Consistente */
+}
+
+.dropdown-item:hover {
+  background: var(--item-hover);
+  color: var(--accent-color); /* Cambio de color en hover */
+}
+
+.dropdown-item.danger {
+  color: var(--danger-color);
+}
+
+.dropdown-item.danger:hover {
+  background: rgba(239, 68, 68, 0.15); /* Fondo más visible */
+  color: var(--danger-color);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: var(--panel-border);
+  border: none;
+  margin: var(--space-xs) 0; /* Usando variable */
+  margin: 4px 0;
+}
+
+/* ============================= */
+/*         Document Preview      */
+/* ============================= */
+.document-preview {
+  border-top: 1px solid var(--panel-border);
+  margin-top: 12px;
+  padding-top: 12px;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.preview-header h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.preview-stats {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(var(--primary-rgb), 0.08);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+.preview-content {
+  background: rgba(var(--primary-rgb), 0.05);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 8px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 11px;
+  line-height: 1.4;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.preview-content pre {
+  margin: 0;
+  white-space: pre-wrap;
+  color: var(--text-primary);
+}
+
+.preview-truncated {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--panel-border);
+}
+
+.preview-truncated span {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.view-full-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-full-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+/* ============================= */
+/*         Empty State           */
+/* ============================= */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.empty-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.empty-state p {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.empty-subtitle {
+  font-size: 14px !important;
+  color: var(--text-muted) !important;
+  margin-bottom: 24px !important;
+}
+
+.upload-btn {
+  padding: 12px 24px;
+  background: var(--accent-color);
+  border: none;
+  border-radius: 8px;
+  color: #152534;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.upload-btn:hover {
+  background: #63b881;
+  transform: translateY(-1px);
+}
+
+/* ============================= */
+/*         Drag Overlay          */
+/* ============================= */
+.drag-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(119, 202, 156, 0.1);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  animation: dragOverlayFadeIn 0.2s ease-out;
+}
+
+@keyframes dragOverlayFadeIn {
+  from {
+    opacity: 0;
+    background: transparent;
+  }
+  to {
+    opacity: 1;
+    background: rgba(119, 202, 156, 0.1);
+  }
+}
+
+.drag-content {
+  text-align: center;
+  color: var(--accent-color);
+}
+
+.drag-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 16px;
+}
+
+.drag-content p {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ============================= */
+/*         Responsive            */
+/* ============================= */
+
+/* Tablet y pantallas medianas */
+@media (max-width: 768px) {
+  .document-panel-overlay {
+    padding-top: 4vh; /* Menos padding en pantallas más pequeñas */
+  }
+  
+  .document-panel {
+    width: 95vw;
+    max-height: 90vh;
+  }
+  
+  .document-stats {
+    padding: var(--space-sm) 8px; /* Reducir padding en tablets */
+    gap: var(--space-xs); /* Reducir gap */
+  }
+  
+  .stat-label {
+    font-size: 0.625rem; /* 10px - Texto más pequeño */
+  }
+  
+  .stat-value {
+    font-size: 0.8125rem; /* 13px - Valor más pequeño */
+  }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+  .document-panel-overlay {
+    padding-top: 2vh;
+    align-items: flex-start;
+  }
+  
+  .document-panel {
+    width: 98vw;
+    max-height: 95vh;
+    border-radius: 8px;
+  }
+  
+  .document-panel-header {
+    padding: 16px 20px 12px;
+  }
+  
+  .header-title h2 {
+    font-size: 16px;
+  }
+  
+  .document-stats {
+    flex-direction: row; /* Mantener horizontal pero más compacto */
+    padding: var(--space-sm) 6px; /* Padding más pequeño */
+    gap: 2px; /* Gap mínimo */
+    margin: 0 var(--space-xs); /* Margen lateral reducido */
+  }
+  
+  .stat {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .stat-label {
+    font-size: 0.5625rem; /* 9px - Muy pequeño para móviles */
+    letter-spacing: 0.02em;
+  }
+  
+  .stat-value {
+    font-size: 0.75rem; /* 12px - Valor compacto */
+  }
+}
+
+/* Pantallas muy pequeñas (menos de 360px) */
+@media (max-width: 360px) {
+  .document-stats {
+    flex-direction: column; /* Cambiar a vertical en pantallas muy pequeñas */
+    gap: var(--space-xs);
+    padding: var(--space-sm) 4px;
+  }
+  
+  .stat {
+    flex-direction: row; /* Horizontal: label - value */
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-xs) var(--space-sm);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--space-xs);
+  }
+  
+  .stat-label {
+    font-size: 0.625rem; /* 10px */
+  }
+  
+  .stat-value {
+    font-size: 0.75rem; /* 12px */
+  }
+}
+
+/* Pantallas muy grandes */
+@media (min-width: 1200px) {
+  :root {
+    --panel-width: 600px; /* Más ancho en pantallas grandes */
+  }
+  
+  .document-panel-overlay {
+    padding-top: 10vh; /* Más espacio arriba en pantallas grandes */
+  }
+  
+  .document-stats {
+    padding: var(--space-lg) 15px; /* Más padding en pantallas grandes */
+    gap: var(--space-md); /* Gap más generoso */
+  }
+  
+  .stat-label {
+    font-size: 0.75rem; /* 12px - Texto más grande */
+  }
+  
+  .stat-value {
+    font-size: 1rem; /* 16px - Valor más grande */
+  }
+}

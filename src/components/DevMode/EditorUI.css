@@ -1,64 +1,261 @@
 /* EditorUI.css */
+
+:root {
+  --editor-bg: #152534;
+  --editor-bg-secondary: #1b2937;
+  --editor-bg-tertiary: #0f1e2a;
+  --editor-border: rgba(45, 111, 161, 0.2);
+  --editor-border-strong: rgba(45, 111, 161, 0.4);
+  --editor-text: #ffffff;
+  --editor-text-muted: rgba(255, 255, 255, 0.7);
+  --editor-accent: #77ca9c;
+  --editor-primary: #1b5083;
+  --editor-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --editor-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --editor-glow: 0 0 20px rgba(119, 202, 156, 0.3);
+  --toolbar-height: 56px;
+  --border-radius: 8px;
+  --padding: 0;
+}
+
 .editor-ui-container {
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
-  background-color: var(--bg-editor);
-  padding: var(--padding);
-  box-sizing: border-box;
+  background: linear-gradient(135deg, var(--editor-bg-tertiary) 0%, var(--editor-bg) 100%);
+  border-radius: var(--border-radius);
+  box-shadow: var(--editor-shadow-lg);
+  border: 1px solid var(--editor-border);
 }
 
 .floating-window {
   width: 100% !important;
   height: 100% !important;
-  background-color: var(--bg-window);
-  border: 1px solid var(--border-color);
+  background: var(--editor-bg);
+  border: 1px solid var(--editor-border-strong);
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
+  box-shadow: 
+    var(--editor-shadow-lg),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   overflow: hidden;
+  position: relative;
+}
+
+.floating-window::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--editor-accent) 50%, 
+    transparent 100%
+  );
+  opacity: 0.8;
+  z-index: 1;
 }
 
 .editor-container {
   display: flex;
   flex-direction: column;
   height: 100%;
+  position: relative;
 }
 
-/* Navbar del editor */
+/* Navbar del editor mejorado */
 .editor-navbar {
   position: relative;
   z-index: 10;
   width: 100%;
   height: var(--toolbar-height);
-  background-color: var(--bg-window);
-  border-bottom: 1px solid var(--border-color);
+  background: linear-gradient(135deg, 
+    rgba(21, 37, 52, 0.95) 0%, 
+    rgba(27, 41, 55, 0.95) 100%
+  );
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--editor-border);
   display: flex;
   align-items: center;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
   box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Área del editor */
+.editor-navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(119, 202, 156, 0.4) 50%, 
+    transparent 100%
+  );
+}
+
+/* Área del editor mejorada */
 .editor-content {
   flex: 1;
   height: calc(100% - var(--toolbar-height));
   overflow: hidden;
+  position: relative;
+  background: var(--editor-bg);
 }
 
-/* Botón flotante para mejorar la selección */
+.editor-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(119, 202, 156, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(27, 80, 131, 0.03) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Botón flotante mejorado */
 .floating-improve-button {
   position: fixed;
-  background-color: var(--accent-color);
-  color: #000;
-  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, var(--editor-accent) 0%, #63b881 100%);
+  color: var(--editor-bg);
+  padding: 0.75rem 1.25rem;
   border-radius: var(--border-radius);
   cursor: pointer;
   z-index: 1100;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  transition: transform 0.2s ease;
+  box-shadow: 
+    var(--editor-shadow-lg),
+    var(--editor-glow);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.025em;
+  backdrop-filter: blur(10px);
+}
+
+.floating-improve-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.3) 50%, 
+    transparent 100%
+  );
+  transition: left 0.5s ease;
 }
 
 .floating-improve-button:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 8px 40px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(119, 202, 156, 0.5);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.floating-improve-button:hover::before {
+  left: 100%;
+}
+
+.floating-improve-button:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* Indicadores de estado del editor */
+.editor-status-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: rgba(21, 37, 52, 0.8);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--editor-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  font-size: 0.75rem;
+  color: var(--editor-text-muted);
+  z-index: 5;
+}
+
+.editor-status-left,
+.editor-status-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.status-item:hover {
+  background: rgba(119, 202, 156, 0.1);
+  color: var(--editor-accent);
+}
+
+/* Mejoras de accesibilidad y responsive */
+@media (max-width: 768px) {
+  .editor-navbar {
+    padding: 0 0.5rem;
+  }
+  
+  .floating-improve-button {
+    padding: 0.625rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .editor-status-bar {
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-improve-button,
+  .status-item,
+  .editor-navbar,
+  .floating-window {
+    transition: none;
+  }
+  
+  .floating-improve-button::before,
+  .floating-window::before,
+  .editor-navbar::after {
+    display: none;
+  }
+}
+
+/* Modo alto contraste */
+@media (prefers-contrast: high) {
+  :root {
+    --editor-border: rgba(255, 255, 255, 0.4);
+    --editor-border-strong: rgba(255, 255, 255, 0.6);
+  }
+  
+  .floating-improve-button {
+    border-width: 2px;
+  }
+  
+  .floating-window {
+    border-width: 2px;
+  }
 }

@@ -1,25 +1,450 @@
 /* EditorToolbar.css */
 
-.editor-toolbar {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem;
-    background-color: #1e2a33; /* Fondo oscuro para integrarse con el tema del editor */
-    border-bottom: 1px solid #2a3b4c;
+:root {
+  --editor-bg: #152534;
+  --editor-bg-secondary: #1b2937;
+  --editor-border: rgba(45, 111, 161, 0.2);
+  --editor-text: #ffffff;
+  --editor-text-muted: rgba(255, 255, 255, 0.7);
+  --editor-accent: #77ca9c;
+  --editor-primary: #1b5083;
+  --editor-hover: rgba(119, 202, 156, 0.1);
+  --editor-active: rgba(119, 202, 156, 0.2);
+  --editor-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --editor-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Asegurar distribución sin flotación */
+.editor__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--editor-bg);
+  border-bottom: 1px solid var(--editor-border);
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+  min-height: 48px;
+  width: 100%;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+/* Eliminar efectos de flotación */
+.editor__toolbar::before {
+  display: none;
+}
+
+/* Grupos de botones - distribución homogénea */
+.editor__toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+/* Remover márgenes automáticos que causan flotación */
+.editor__toolbar-group:first-child {
+  margin-right: 0;
+}
+
+.editor__toolbar-group:last-child {
+  margin-left: 0;
+}
+
+/* Botones del toolbar */
+.editor__toolbar-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--editor-text-muted);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  position: relative;
+  font-size: 0;
+}
+
+.editor__toolbar-button:hover {
+  color: var(--editor-accent);
+  background: var(--editor-hover);
+  border-color: rgba(119, 202, 156, 0.2);
+}
+
+.editor__toolbar-button:active {
+  background: var(--editor-active);
+}
+
+.editor__toolbar-button:focus-visible {
+  outline: 1px solid var(--editor-accent);
+  outline-offset: 1px;
+}
+
+.editor__toolbar-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Estado activo */
+.editor__toolbar-button--active {
+  background: var(--editor-hover);
+  color: var(--editor-accent);
+  border-color: rgba(119, 202, 156, 0.3);
+}
+
+/* Estado de carga */
+.editor__toolbar-button--loading {
+  background: var(--editor-hover);
+  border-color: rgba(119, 202, 156, 0.3);
+  cursor: not-allowed;
+}
+
+.editor__toolbar-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(119, 202, 156, 0.3);
+  border-top: 2px solid var(--editor-accent);
+  border-radius: 50%;
+  animation: editor__toolbar-spin 1s linear infinite;
+}
+
+@keyframes editor__toolbar-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Separadores */
+.editor__toolbar-separator {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 0.5rem;
+  flex-shrink: 0;
+}
+
+/* Wrapper del selector de lenguaje - adaptable */
+.editor__toolbar-language-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  max-width: 160px;
+  flex-shrink: 0;
+}
+
+.editor__toolbar-language-wrapper:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(119, 202, 156, 0.2);
+}
+
+.editor__toolbar-language-icon {
+  color: var(--editor-text-muted);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.editor__toolbar-language-wrapper:hover .editor__toolbar-language-icon {
+  color: var(--editor-accent);
+}
+
+.editor__toolbar-language-select {
+  background: transparent;
+  border: none;
+  color: var(--editor-text);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  appearance: none;
+  flex: 1;
+  min-width: 0;
+  outline: none;
+}
+
+.editor__toolbar-language-select option {
+  background: var(--editor-bg);
+  color: var(--editor-text);
+  padding: 0.5rem;
+}
+
+/* Botón de guardado */
+.editor__toolbar-save {
+  position: relative;
+}
+
+.editor__toolbar-save--modified {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+}
+
+.editor__toolbar-save--modified:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.editor__toolbar-unsaved-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 6px;
+  height: 6px;
+  background: #ef4444;
+  border: 1px solid var(--editor-bg);
+  border-radius: 50%;
+  animation: editor__toolbar-pulse-red 2s infinite;
+}
+
+@keyframes editor__toolbar-pulse-red {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+/* Estado del toolbar - alineado a la derecha sin flotación */
+.editor__toolbar-status {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.editor__toolbar-status-item {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--editor-text-muted);
+  padding: 0.125rem 0.375rem;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.editor__toolbar-status-item--loading {
+  color: var(--editor-accent);
+  background: rgba(119, 202, 156, 0.05);
+  border-color: rgba(119, 202, 156, 0.1);
+}
+
+.editor__toolbar-status-item--modified {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.05);
+  border-color: rgba(239, 68, 68, 0.1);
+}
+
+.editor__toolbar-status-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.editor__toolbar-status-item--loading .editor__toolbar-status-dot {
+  animation: editor__toolbar-pulse 1.5s infinite;
+}
+
+.editor__toolbar-status-item--modified .editor__toolbar-status-dot {
+  animation: editor__toolbar-pulse-red 2s infinite;
+}
+
+@keyframes editor__toolbar-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.3);
+  }
+}
+
+/* Tooltips simplificados */
+.editor__toolbar-button[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+  z-index: 1000;
+  pointer-events: none;
+  animation: editor__toolbar-tooltip-appear 0.15s ease;
+}
+
+@keyframes editor__toolbar-tooltip-appear {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Responsive - mejora distribución */
+@media (max-width: 768px) {
+  .editor__toolbar {
+    padding: 0.375rem 0.5rem;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    min-height: auto;
   }
   
-  .toolbar-button {
-    background: none;
-    border: none;
-    color: #e0e6ed;
-    cursor: pointer;
-    padding: 0.5rem;
-    transition: color 0.2s ease, transform 0.2s ease;
+  .editor__toolbar-group {
+    gap: 0.125rem;
+    flex-shrink: 1;
   }
   
-  .toolbar-button:hover {
-    color: #4fc3f7;
-    transform: scale(1.05);
+  .editor__toolbar-group:first-child,
+  .editor__toolbar-group:last-child {
+    margin: 0;
   }
+  
+  .editor__toolbar-separator {
+    display: none;
+  }
+  
+  .editor__toolbar-language-wrapper {
+    min-width: 100px;
+    max-width: 120px;
+    padding: 0.125rem 0.375rem;
+  }
+  
+  .editor__toolbar-language-select {
+    font-size: 0.75rem;
+  }
+  
+  .editor__toolbar-status {
+    margin-left: 0;
+    margin-top: 0.25rem;
+    width: 100%;
+    justify-content: center;
+    order: 10;
+  }
+  
+  .editor__toolbar-status-item {
+    font-size: 0.65rem;
+    padding: 0.0625rem 0.25rem;
+  }
+}
+
+/* Mejoras de accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  .editor__toolbar-button,
+  .editor__toolbar-language-wrapper,
+  .editor__toolbar-status-item,
+  .editor__toolbar-spinner,
+  .editor__toolbar-unsaved-dot,
+  .editor__toolbar-status-dot {
+    transition: none;
+    animation: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .editor__toolbar-button,
+  .editor__toolbar-language-wrapper,
+  .editor__toolbar-status-item {
+    border-width: 2px;
+  }
+  
+  .editor__toolbar-separator {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Mejoras para el resaltado del editor y adaptación homogénea */
+.editor__toolbar + .editor-content .monaco-editor .selected-text {
+  background: rgba(119, 202, 156, 0.2) !important;
+  border: 1px solid rgba(119, 202, 156, 0.4);
+  border-radius: 2px;
+}
+
+.editor__toolbar + .editor-content .monaco-editor .current-line {
+  background: rgba(119, 202, 156, 0.05) !important;
+  border-left: 2px solid var(--editor-accent);
+}
+
+/* Integración mejorada con el container del editor */
+.editor-container .editor__toolbar {
+  border-top: 1px solid var(--editor-border);
+  border-left: 1px solid var(--editor-border);
+  border-right: 1px solid var(--editor-border);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+/* Adaptación para diferentes resoluciones */
+@media (min-width: 1200px) {
+  .editor__toolbar {
+    padding: 0.625rem 1rem;
+    gap: 0.75rem;
+  }
+  
+  .editor__toolbar-group {
+    gap: 0.375rem;
+  }
+  
+  .editor__toolbar-language-wrapper {
+    min-width: 140px;
+    max-width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .editor__toolbar {
+    padding: 0.25rem 0.375rem;
+    gap: 0.125rem;
+    min-height: 40px;
+  }
+  
+  .editor__toolbar-button {
+    min-width: 28px;
+    min-height: 28px;
+    padding: 0.375rem;
+  }
+  
+  .editor__toolbar-language-wrapper {
+    min-width: 80px;
+    max-width: 100px;
+    padding: 0.125rem 0.25rem;
+  }
+  
+  .editor__toolbar-language-select {
+    font-size: 0.7rem;
+  }
+  
+  .editor__toolbar-status-item span {
+    display: none;
+  }
+}
+
+/* Asegurar distribución sin flotación - removido */
   

@@ -1,16 +1,51 @@
-import React from 'react';
-import { Bot, User } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Bot, User, Copy, Check, RotateCcw } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import './ChatMessage.css';
 
-function ChatMessage({ message, isBot, streamContent }) {
+function ChatMessage({ message, isBot, streamContent, onRegenerate }) {
   const contentToDisplay = streamContent || message;
+  const [copiedStates, setCopiedStates] = useState(new Map());
+  const messageRef = useRef(null);
+
+  // Principio de Feedback: Función para copiar contenido
+  const handleCopy = async (text, id) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedStates(prev => new Map(prev).set(id, true));
+      
+      // Feedback temporal
+      setTimeout(() => {
+        setCopiedStates(prev => {
+          const newMap = new Map(prev);
+          newMap.delete(id);
+          return newMap;
+        });
+      }, 2000);
+    } catch (err) {
+      console.error('Error al copiar:', err);
+    }
+  };
+
+  // Principio de Accesibilidad: Scroll automático para mensajes nuevos
+  useEffect(() => {
+    if (streamContent && messageRef.current) {
+      messageRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'nearest' 
+      });
+    }
+  }, [streamContent]);
 
   return (
-    <div className={`message-container ${isBot ? 'bot-message' : 'user-message'}`}>
+    <div 
+      ref={messageRef}
+      className={`message-container ${isBot ? 'bot-message' : 'user-message'}`}
+      role="article"
+      aria-label={`${isBot ? 'Respuesta del asistente' : 'Tu mensaje'}`}
+    >
       {isBot && (
         <div className="message-avatar bot-avatar" aria-hidden="true">
           <Bot 
@@ -65,12 +100,15 @@ function ChatMessage({ message, isBot, streamContent }) {
               return (
                 <SyntaxHighlighter
                   language={match ? match[1] : ''}
-                  style={vscDarkPlus}
                   customStyle={{
                     borderRadius: '0.5rem',
                     padding: '1rem',
                     margin: '1rem 0',
                     border: '1px solid rgba(255, 255, 255, 0.2)',
+                    backgroundColor: '#282c34',
+                    color: '#abb2bf',
+                    fontSize: '14px',
+                    lineHeight: '1.5'
                   }}
                   {...props}
                 >

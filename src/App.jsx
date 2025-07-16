@@ -16,7 +16,6 @@ import { sendMessage } from "./api/api";
 function App() {
   // Estados para el chat
   const [message, setMessage] = useState('');
-  const [files, setFiles] = useState([]);
   const [showSidebar, setShowSidebar] = useState(true);
   const [messages, setMessages] = useState([]);
   const [isBotTyping, setIsBotTyping] = useState(false);
@@ -40,7 +39,7 @@ function App() {
   };
 
   const handleSend = async () => {
-    if (message.trim() || files.length > 0) {
+    if (message.trim()) {
       const originalUserMsg = message;
       const userMessage = { role: 'user', content: originalUserMsg };
       const newMessages = [...messages, userMessage];
@@ -128,6 +127,10 @@ function App() {
                         {isBotTyping && <ChatLoading />}
                         <div ref={messagesEndRef} />
                       </div>
+                    </div>
+                    
+                    {/* Input always fixed at bottom */}
+                    <div className="input-fixed-bottom">
                       <ChatInput 
                         message={message}
                         setMessage={setMessage}
@@ -136,10 +139,8 @@ function App() {
                         isLoading={isBotTyping}
                         onModelChange={handleModelChange}
                         isReasoningModel={currentModel === 'deepseek-reasoner'}
-                        files={files}
-                        setFiles={setFiles}
                         toggleEditor={toggleEditor}
-                        onFileLoad={setEditorContent}  // Actualiza el contenido del editor al cargar un archivo
+                        onFileLoad={setEditorContent}
                       />
                     </div>
                   </div>
